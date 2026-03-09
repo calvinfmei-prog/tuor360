@@ -1,40 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acesso aos Imóveis</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<title>Acesso aos Imóveis</title>
 
 <link rel="stylesheet" href="style.css">
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 </head>
+
 <body class="login">
 
-<div class="box">
+<div class="login-box">
 
-  <h2>Imóveis 360</h2>
-  <p>Digite o código do corretor</p>
+<h2>Imóveis 360</h2>
 
-  <form onsubmit="acessar(event)">
+<p>Digite o código do corretor</p>
 
-    <input
-      type="text"
-      id="codigo"
-      placeholder="Digite seu código"
-      autocomplete="off"
-      required
-    >
+<form onsubmit="acessar(event)">
 
-    <button type="submit">Entrar</button>
+<input
+type="text"
+id="codigo"
+placeholder="Digite seu código"
+autocomplete="off"
+required
+>
 
-  </form>
+<button type="submit">Entrar</button>
 
-  <div class="erro" id="erro"></div>
+</form>
+
+<div class="erro" id="erro"></div>
 
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
 
