@@ -218,3 +218,109 @@ margin-top:30px;
 border-radius:12px;
 
 }
+
+/* LOGIN */
+
+.login{
+
+height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:linear-gradient(135deg,#111,#1f2937);
+
+}
+
+/* CAIXA LOGIN */
+
+.login-box{
+
+background:white;
+
+padding:40px;
+
+border-radius:16px;
+
+width:320px;
+
+text-align:center;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+
+}
+
+.login-box h2{
+
+margin-top:0;
+
+color:#111;
+
+}
+
+.login-box p{
+
+color:#666;
+
+}
+
+/* INPUT */
+
+.login-box input{
+
+width:100%;
+
+padding:12px;
+
+margin-top:15px;
+
+border-radius:8px;
+
+border:1px solid #ddd;
+
+font-size:16px;
+
+}
+
+/* BOTÃO */
+
+.login-box button{
+
+width:100%;
+
+margin-top:15px;
+
+padding:12px;
+
+border:none;
+
+border-radius:8px;
+
+background:#22c55e;
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
+
+}
+
+.login-box button:hover{
+
+background:#16a34a;
+
+}
+
+/* ERRO */
+
+.erro{
+
+color:red;
+
+margin-top:10px;
+
+font-size:14px;
+
+}
