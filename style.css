@@ -1,73 +1,28 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f4f4f4;
+body{
+font-family:'Poppins',sans-serif;
+background:#111;
+color:white;
+margin:0;
+padding:40px;
 }
 
-header {
-  background: black;
-  color: white;
-  padding: 20px;
-  text-align: center;
+.container{
+max-width:900px;
+margin:auto;
 }
 
-.filtros {
-  text-align: center;
-  margin: 20px;
+.card{
+background:#1e1e1e;
+padding:20px;
+border-radius:10px;
+margin-bottom:20px;
 }
 
-.filtros button {
-  padding: 10px 15px;
-  margin: 5px;
-  cursor: pointer;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.card a {
-  display: inline-block;
-  margin-top: 10px;
-  text-decoration: none;
-  background: black;
-  color: white;
-  padding: 8px 12px;
-}
-
-.tour iframe {
-  width: 100%;
-  height: 80vh;
-  border: none;
-}
-
-.whatsapp-float{
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  background:#25D366;
-  color:white;
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  text-decoration:none;
-  box-shadow:0 8px 20px rgba(0,0,0,0.2);
-  transition:.3s;
-}
-
-.whatsapp-float:hover{
-  transform:scale(1.1);
+button{
+padding:10px 20px;
+border:none;
+background:#25D366;
+color:white;
+border-radius:8px;
+cursor:pointer;
 }
