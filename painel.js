@@ -10,6 +10,20 @@ if(!corretorId){
   window.location.href = "index.html";
 }
 
+let whatsappCorretor = "";
+
+async function carregarCorretor(){
+
+const { data } = await supabaseClient
+.from("corretores")
+.select("whatsapp")
+.eq("id", corretorId)
+.single();
+
+whatsappCorretor = data.whatsapp;
+
+}
+
 document.getElementById("titulo").innerText =
 "Imóveis de " + corretorNome;
 
