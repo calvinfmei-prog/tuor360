@@ -28,6 +28,7 @@ font-size: 32px;                  /* aumentei um pouco para ficar mais imponente
 font-weight: 700;
 color: #222;
 text-align: center;
+transform: translateX(-50%);
 flex: 1;                          /* ← faz o título crescer e ficar no centro */
 max-width: 60%;                   /* evita que fique largo demais em telas grandes */
 white-space: nowrap;              /* impede quebra de linha feia */
@@ -401,6 +402,7 @@ font-weight: bold;
 background: #c62828;
 
 }
+
 
 
 
