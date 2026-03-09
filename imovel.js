@@ -8,11 +8,19 @@ const id = params.get("id");
 
 async function carregar(){
 
-const { data } = await supabaseClient
+const { data, error } = await supabaseClient
 .from("imoveis")
-.select("*")
+.select(`
+  *,
+  corretores ( whatsapp )
+`)
 .eq("id", id)
 .single();
+
+if(error){
+console.error(error);
+return;
+}
 
 document.getElementById("titulo").innerText = data.titulo;
 
@@ -24,7 +32,7 @@ data.banheiros + " banheiros • " +
 data.area + "m²";
 
 document.getElementById("whatsapp").href =
-"https://wa.me/" + data.whatsapp;
+"https://wa.me/" + data.corretores.whatsapp;
 
 document.getElementById("tour").innerHTML = `
 <iframe
