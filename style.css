@@ -28,26 +28,29 @@ font-size:32px;
 
 .filtros{
 
+margin-top:20px;
 display:flex;
+justify-content:center;
 gap:10px;
-margin-bottom:20px;
 
 }
 
 .filtros button{
 
-background:#1976d2;
-color:white;
 border:none;
-padding:8px 14px;
-border-radius:6px;
+background:#e5e5e5;
+padding:8px 18px;
+border-radius:20px;
 cursor:pointer;
+font-size:14px;
+
+transition:.2s;
 
 }
 
 .filtros button:hover{
 
-background:#1565c0;
+background:#d4d4d4;
 
 }
 
@@ -388,4 +391,5 @@ font-weight:bold;
 background:#c62828;
 
 }
+
 
