@@ -12,10 +12,19 @@ const { data, error } = await supabaseClient
 .from("imoveis")
 .select(`
   *,
-  corretores ( whatsapp )
+  corretores ( whatsapp ),
+  imovel_extras ( extra )
 `)
 .eq("id", id)
 .single();
+
+const extrasDiv = document.getElementById("extras");
+
+let listaExtras = data.imovel_extras.map(e => e.extra);
+
+extrasDiv.innerHTML = listaExtras
+.map(extra => `<span class="extra-item">${extra}</span>`)
+.join("");
 
 if(error){
 console.error(error);
