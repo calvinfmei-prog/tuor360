@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
 <meta charset="UTF-8">
@@ -10,17 +11,12 @@
 <link rel="stylesheet" href="style.css">
 
 </head>
+
 <body>
 
-<div class="container">
+<header>
 
-<h2 id="titulo"></h2>
-
-<div id="listaImoveis"></div>
-
-<button onclick="logout()">Sair</button>
-
-</div>
+<h1 id="titulo"></h1>
 
 <div class="filtros">
 
@@ -30,8 +26,17 @@
 
 </div>
 
+</header>
+
+<div id="listaImoveis" class="lista"></div>
+
+<div style="text-align:center; margin-bottom:40px;">
+<button onclick="logout()" class="btn-preto">Sair</button>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="painel.js"></script>
 
 </body>
+
 </html>
