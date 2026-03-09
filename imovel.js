@@ -62,9 +62,9 @@ allowfullscreen>
 
 /* BUSCAR EXTRAS */
 
-const { data: extras, error } = await supabaseClient
+const { data: extras, error: erroExtras } = await supabaseClient
 .from("imovel_extras")
-.select("extra, imovel_id")
+.select("extra")
 .eq("imovel_id", id);
 
 console.log("Extras encontrados:", extras);
