@@ -14,12 +14,6 @@ const { data } = await supabaseClient
 .eq("id", id)
 .single();
 
-const { dataWATHSAPP } = await supabaseClient
-.from("corretores")
-.select("*")
-.eq("id", id)
-.single();
-
 document.getElementById("titulo").innerText = data.titulo;
 
 document.getElementById("preco").innerText = "R$ " + data.preco;
@@ -30,7 +24,7 @@ data.banheiros + " banheiros • " +
 data.area + "m²";
 
 document.getElementById("whatsapp").href =
-"https://wa.me/" + dataWATHSAPP.whatsapp;
+"https://wa.me/" + data.whatsapp;
 
 document.getElementById("tour").innerHTML = `
 <iframe
