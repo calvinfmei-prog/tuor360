@@ -324,3 +324,23 @@ margin-top:10px;
 font-size:14px;
 
 }
+
+.extras{
+
+display:flex;
+flex-wrap:wrap;
+
+gap:10px;
+
+margin-top:10px;
+
+}
+
+.extra-item{
+
+background:#f1f1f1;
+padding:8px 14px;
+border-radius:20px;
+font-size:14px;
+
+}
