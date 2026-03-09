@@ -8,52 +8,74 @@ const id = params.get("id");
 
 async function carregar(){
 
-const { data, error } = await supabaseClient
+/* BUSCAR IMÓVEL */
+
+const { data: imovel, error } = await supabaseClient
 .from("imoveis")
 .select(`
 *,
-corretores ( whatsapp ),
-imovel_extras ( extra )
+corretores ( whatsapp )
 `)
 .eq("id", id)
 .single();
 
 if(error){
-console.error(error);
+console.error("Erro ao carregar imóvel:", error);
 return;
 }
 
-document.getElementById("titulo").innerText = data.titulo;
+/* PREENCHER DADOS DO IMÓVEL */
 
-document.getElementById("preco").innerText = "R$ " + data.preco;
+document.getElementById("titulo").innerText = imovel.titulo;
+
+document.getElementById("preco").innerText = "R$ " + imovel.preco;
 
 document.getElementById("info").innerText =
-data.quartos + " quartos • " +
-data.banheiros + " banheiros • " +
-data.area + "m²";
+imovel.quartos + " quartos • " +
+imovel.banheiros + " banheiros • " +
+imovel.area + "m²";
 
+/* WHATSAPP */
+
+if(imovel.corretores){
 document.getElementById("whatsapp").href =
-"https://wa.me/" + data.corretores.whatsapp;
+"https://wa.me/" + imovel.corretores.whatsapp;
+}
 
-/* TOUR */
+/* TOUR 360 */
 
+if(imovel.tour){
 document.getElementById("tour").innerHTML = `
 <iframe
 width="100%"
 height="500"
-src="${data.tour}"
+src="${imovel.tour}"
 frameborder="0"
 allowfullscreen>
 </iframe>
 `;
+}
 
-/* EXTRAS */
+/* BUSCAR EXTRAS */
+
+const { data: extras, error: erroExtras } = await supabaseClient
+.from("imovel_extras")
+.select("extra")
+.eq("imovel_id", id);
 
 const extrasDiv = document.getElementById("extras");
 
-if(data.imovel_extras && data.imovel_extras.length > 0){
+if(erroExtras){
+console.error("Erro ao carregar extras:", erroExtras);
+extrasDiv.innerHTML = "Erro ao carregar extras.";
+return;
+}
 
-extrasDiv.innerHTML = data.imovel_extras
+/* MOSTRAR EXTRAS */
+
+if(extras && extras.length > 0){
+
+extrasDiv.innerHTML = extras
 .map(e => `<span class="extra-item">${e.extra}</span>`)
 .join("");
 
