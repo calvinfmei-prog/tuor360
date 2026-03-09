@@ -23,6 +23,9 @@ data.quartos + " quartos • " +
 data.banheiros + " banheiros • " +
 data.area + "m²";
 
+document.getElementById("whatsapp").href =
+"https://wa.me/" + data.whatsapp;
+
 document.getElementById("tour").innerHTML = `
 <iframe
 width="100%"
