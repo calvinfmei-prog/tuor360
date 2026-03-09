@@ -4,7 +4,9 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const id = Number(params.get("id"));
+
+console.log("ID do imóvel:", id);
 
 async function carregar(){
 
@@ -24,7 +26,9 @@ console.error("Erro ao carregar imóvel:", error);
 return;
 }
 
-/* PREENCHER DADOS DO IMÓVEL */
+console.log("Imóvel:", imovel);
+
+/* PREENCHER DADOS */
 
 document.getElementById("titulo").innerText = imovel.titulo;
 
@@ -42,7 +46,7 @@ document.getElementById("whatsapp").href =
 "https://wa.me/" + imovel.corretores.whatsapp;
 }
 
-/* TOUR 360 */
+/* TOUR */
 
 if(imovel.tour){
 document.getElementById("tour").innerHTML = `
@@ -60,13 +64,15 @@ allowfullscreen>
 
 const { data: extras, error: erroExtras } = await supabaseClient
 .from("imovel_extras")
-.select("extra")
+.select("*")
 .eq("imovel_id", id);
+
+console.log("Extras encontrados:", extras);
 
 const extrasDiv = document.getElementById("extras");
 
 if(erroExtras){
-console.error("Erro ao carregar extras:", erroExtras);
+console.error("Erro extras:", erroExtras);
 extrasDiv.innerHTML = "Erro ao carregar extras.";
 return;
 }
