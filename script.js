@@ -26,7 +26,7 @@ async function acessar(event){
       .from("corretores")
       .select("*")
       .eq("codigo", codigo)
-      .single();
+      .maybeSingle();
 
     if(error || !data){
       erro.innerText = "Código inválido.";
