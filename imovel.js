@@ -6,20 +6,22 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-async function carregarImovel(){
+async function carregar(){
 
-const { data, error } = await supabaseClient
+const { data } = await supabaseClient
 .from("imoveis")
 .select("*")
 .eq("id", id)
 .single();
 
-if(error){
-document.body.innerHTML = "Erro ao carregar imóvel.";
-return;
-}
-
 document.getElementById("titulo").innerText = data.titulo;
+
+document.getElementById("preco").innerText = "R$ " + data.preco;
+
+document.getElementById("info").innerText =
+data.quartos + " quartos • " +
+data.banheiros + " banheiros • " +
+data.area + "m²";
 
 document.getElementById("tour").innerHTML = `
 <iframe
@@ -33,4 +35,4 @@ allowfullscreen>
 
 }
 
-carregarImovel();
+carregar();
