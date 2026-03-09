@@ -53,7 +53,19 @@ Ver Imóvel
 });
 
 }
+function filtrar(tipo){
 
+if(tipo === "todos"){
+
+carregarImoveis()
+
+}else{
+
+carregarImoveis(tipo)
+
+}
+
+}
 function logout(){
 sessionStorage.clear();
 window.location.href = "index.html";
