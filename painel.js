@@ -6,13 +6,16 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 const corretorId = sessionStorage.getItem("corretorId");
 const corretorNome = sessionStorage.getItem("corretorNome");
 
-if(!corretorId){
+if (!corretorId) {
   window.location.href = "index.html";
 }
 
+document.getElementById("titulo").innerText =
+"Imóveis de " + corretorNome;
+
 let whatsappCorretor = "";
 
-async function carregarCorretor(){
+async function carregarCorretor() {
 
 const { data } = await supabaseClient
 .from("corretores")
@@ -24,29 +27,32 @@ whatsappCorretor = data.whatsapp;
 
 }
 
-document.getElementById("titulo").innerText =
-"Imóveis de " + corretorNome;
-
-async function carregarImoveis(){
+async function carregarImoveis(tipo = "todos") {
 
 await carregarCorretor();
 
-const { data, error } = await supabaseClient
+let query = supabaseClient
 .from("imoveis")
 .select("*")
 .eq("corretor_id", corretorId);
+
+if (tipo !== "todos") {
+query = query.eq("tipo", tipo);
+}
+
+const { data, error } = await query;
 
 const lista = document.getElementById("listaImoveis");
 
 lista.innerHTML = "";
 
-if(error){
+if (error) {
 lista.innerHTML = "Erro ao carregar imóveis.";
 return;
 }
 
-if(data.length === 0){
-lista.innerHTML = "Nenhum imóvel cadastrado.";
+if (data.length === 0) {
+lista.innerHTML = "Nenhum imóvel encontrado.";
 return;
 }
 
@@ -86,22 +92,18 @@ Falar no WhatsApp
 });
 
 }
-function filtrar(tipo){
 
-if(tipo === "todos"){
+function filtrar(tipo) {
 
-carregarImoveis()
-
-}else{
-
-carregarImoveis(tipo)
+carregarImoveis(tipo);
 
 }
 
-}
-function logout(){
+function logout() {
+
 sessionStorage.clear();
 window.location.href = "index.html";
+
 }
 
 carregarImoveis();
