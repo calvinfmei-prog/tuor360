@@ -77,12 +77,35 @@ extrasDiv.innerHTML = "Erro ao carregar extras.";
 return;
 }
 
+const iconesExtras = {
+"Piscina": "🏊",
+"Garagem": "🚗",
+"Academia": "🏋️",
+"Área Gourmet": "🍖",
+"Churrasqueira": "🔥",
+"Elevador": "🛗",
+"Varanda": "🌅",
+"Jardim": "🌳",
+"Portaria 24h": "🛡️",
+"Ar Condicionado": "❄️"
+};
 /* MOSTRAR EXTRAS */
 
 if(extras && extras.length > 0){
 
 extrasDiv.innerHTML = extras
-.map(e => `<span class="extra-item">${e.extra}</span>`)
+.map(e => {
+
+const icone = iconesExtras[e.extra] || "✔️";
+
+return `
+<span class="extra-item">
+<span class="extra-icone">${icone}</span>
+${e.extra}
+</span>
+`;
+
+})
 .join("");
 
 }else{
