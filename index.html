@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Acesso aos Imóveis</title>
@@ -56,6 +57,10 @@ input{
   outline:none;
 }
 
+input:focus{
+  box-shadow:0 0 0 2px #25D366;
+}
+
 button{
   width:100%;
   padding:15px;
@@ -81,31 +86,34 @@ button:hover{
 }
 
 </style>
+
 </head>
 <body>
 
 <div class="box">
-  <h2>Imoveis 360</h2>
+
+  <h2>Imóveis 360</h2>
   <p>Digite o código do corretor</p>
-  <input type="text" id="codigo">
-  <button onclick="acessar()">Entrar</button>
+
+  <form onsubmit="acessar(event)">
+
+    <input
+      type="text"
+      id="codigo"
+      placeholder="Digite seu código"
+      autocomplete="off"
+      required
+    >
+
+    <button type="submit">Entrar</button>
+
+  </form>
+
   <div class="erro" id="erro"></div>
+
 </div>
-
-<script src="corretores.js"></script>
-<script>
-function acessar(){
-  const codigo = document.getElementById("codigo").value.trim().toUpperCase();
-  const corretor = corretores.find(c => c.codigo === codigo);
-
-  if(corretor){
-    sessionStorage.setItem("corretorId", corretor.id);
-    window.location.href = "painel.html";
-  } else{
-    document.getElementById("erro").innerText = "Código inválido.";
-  }
-}
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
