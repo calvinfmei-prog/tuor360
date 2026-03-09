@@ -11,27 +11,27 @@ margin:0;
 header{
 
 background: white;
-padding: 25px 30px;
+padding: 20px 16px;               /* padding menor no mobile fica melhor */
 border-radius: 16px;
 display: flex;
-justify-content: center;          /* centraliza horizontalmente */
 align-items: center;
+justify-content: space-between;   /* distribui: título no meio, botão na direita */
 box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-margin-bottom: 30px;
-position: relative;               /* permite posicionamento absoluto do título */
+margin-bottom: 24px;
+gap: 16px;                        /* espaço mínimo entre elementos */
+position: relative;               /* só por segurança, mas não obrigatório */
 
 }
 
 #titulo{
 margin: 0;
-font-size: 32px;
+font-size: 28px;                  /* um pouco menor ajuda no mobile */
 font-weight: 700;
 color: #222;
 text-align: center;
-position: absolute;               /* tira do fluxo normal */
-left: 50%;
-transform: translateX(-50%);      /* centraliza perfeitamente */
-white-space: nowrap;
+flex: 1;                          /* ocupa o espaço disponível no centro */
+/* max-width: 65%; */             /* opcional: limita se o nome for muito longo */
+line-height: 1.3;                 /* melhora legibilidade em quebras */
 }
 
 /* FILTROS */
@@ -386,7 +386,7 @@ font-size:26px;
 
 .btn-sair{
 
-margin-left: auto;                /* joga para a extrema direita */
+flex-shrink: 0;                   /* não encolhe */
 background: #e53935;
 color: white;
 border: none;
@@ -394,7 +394,7 @@ padding: 10px 16px;
 border-radius: 6px;
 cursor: pointer;
 font-weight: bold;
-
+white-space: nowrap;
 }
 
 .btn-sair:hover{
@@ -402,6 +402,7 @@ font-weight: bold;
 background: #c62828;
 
 }
+
 
 
 
