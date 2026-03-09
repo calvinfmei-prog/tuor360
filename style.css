@@ -11,14 +11,14 @@ margin:0;
 header{
 
 background: white;
-padding: 25px 30px;               /* um pouco mais de espaço lateral */
+padding: 25px 30px;
 border-radius: 16px;
 display: flex;
-justify-content: center;          /* centraliza os itens horizontalmente */
-align-items: center;              /* alinha verticalmente */
-gap: 20px;                        /* espaço entre título e botão */
+justify-content: center;          /* centraliza horizontalmente */
+align-items: center;
 box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 margin-bottom: 30px;
+position: relative;               /* permite posicionamento absoluto do título */
 
 }
 
@@ -28,7 +28,6 @@ font-size: 32px;                  /* aumentei um pouco para ficar mais imponente
 font-weight: 700;
 color: #222;
 text-align: center;
-transform: translateX(-50%);
 flex: 1;                          /* ← faz o título crescer e ficar no centro */
 max-width: 60%;                   /* evita que fique largo demais em telas grandes */
 white-space: nowrap;              /* impede quebra de linha feia */
@@ -402,6 +401,7 @@ font-weight: bold;
 background: #c62828;
 
 }
+
 
 
 
