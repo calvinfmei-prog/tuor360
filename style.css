@@ -379,7 +379,7 @@ padding:20px;
 .painel-header{
 
 display:flex;
-justify-content:center;
+justify-content:space-between;
 align-items:center;
 margin-bottom:20px;
 
@@ -408,6 +408,7 @@ font-weight:bold;
 background:#c62828;
 
 }
+
 
 
 
