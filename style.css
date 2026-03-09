@@ -24,13 +24,14 @@ position: relative;               /* permite posicionamento absoluto do título 
 
 #titulo{
 margin: 0;
-font-size: 32px;                  /* aumentei um pouco para ficar mais imponente */
+font-size: 32px;
 font-weight: 700;
 color: #222;
 text-align: center;
-flex: 1;                          /* ← faz o título crescer e ficar no centro */
-max-width: 60%;                   /* evita que fique largo demais em telas grandes */
-white-space: nowrap;              /* impede quebra de linha feia */
+position: absolute;               /* tira do fluxo normal */
+left: 50%;
+transform: translateX(-50%);      /* centraliza perfeitamente */
+white-space: nowrap;
 }
 
 /* FILTROS */
@@ -401,6 +402,7 @@ font-weight: bold;
 background: #c62828;
 
 }
+
 
 
 
