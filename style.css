@@ -24,6 +24,10 @@ font-size:32px;
 
 }
 
+#titulo{
+text-align:center;
+}
+
 /* FILTROS */
 
 .filtros{
@@ -391,5 +395,6 @@ font-weight:bold;
 background:#c62828;
 
 }
+
 
 
