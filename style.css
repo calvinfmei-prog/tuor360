@@ -337,10 +337,16 @@ margin-top:10px;
 }
 
 .extra-item{
+display:flex;
+align-items:center;
+gap:6px;
 
 background:#f1f1f1;
 padding:8px 14px;
 border-radius:20px;
 font-size:14px;
+}
 
+.extra-icone{
+font-size:16px;
 }
