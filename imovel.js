@@ -4,7 +4,7 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 const params = new URLSearchParams(window.location.search);
-const id = Number(params.get("id"));
+const id = parseInt(params.get("id"));
 
 console.log("ID do imóvel:", id);
 
@@ -62,9 +62,9 @@ allowfullscreen>
 
 /* BUSCAR EXTRAS */
 
-const { data: extras, error: erroExtras } = await supabaseClient
+const { data: extras, error } = await supabaseClient
 .from("imovel_extras")
-.select("*")
+.select("extra, imovel_id")
 .eq("imovel_id", id);
 
 console.log("Extras encontrados:", extras);
