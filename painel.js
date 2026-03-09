@@ -37,11 +37,15 @@ data.forEach(imovel => {
 lista.innerHTML += `
 <div class="card">
 
+<img src="${imovel.imagem}" class="thumb">
+
 <h3>${imovel.titulo}</h3>
 
 <p>Preço: ${imovel.preco}</p>
 
-<a href="${imovel.tour}" target="_blank">Ver Tour</a>
+<a href="imovel.html?id=${imovel.id}" class="btn">
+Ver Imóvel
+</a>
 
 </div>
 `;
