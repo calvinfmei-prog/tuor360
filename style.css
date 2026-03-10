@@ -11,27 +11,45 @@ margin:0;
 header{
 
 background: white;
-padding: 20px 16px;               /* padding menor no mobile fica melhor */
+
+padding: 22px 28px;
+
 border-radius: 16px;
+
 display: flex;
 align-items: center;
-justify-content: space-between;   /* distribui: título no meio, botão na direita */
-box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-margin-bottom: 24px;
-gap: 16px;                        /* espaço mínimo entre elementos */
-position: relative;               /* só por segurança, mas não obrigatório */
+justify-content: space-between;
+
+box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+
+margin: 20px;
+
+gap: 20px;
+
+border-left: 6px solid #22c55e;   /* detalhe visual elegante */
 
 }
 
+/* TÍTULO */
+
 #titulo{
+
 margin: 0;
-font-size: 28px;                  /* um pouco menor ajuda no mobile */
+
+font-size: 26px;
+
 font-weight: 700;
-color: #222;
+
+color: #111;
+
 text-align: center;
-flex: 1;                          /* ocupa o espaço disponível no centro */
-/* max-width: 65%; */             /* opcional: limita se o nome for muito longo */
-line-height: 1.3;                 /* melhora legibilidade em quebras */
+
+flex: 1;
+
+line-height: 1.3;
+
+letter-spacing: 0.3px;
+
 }
 
 /* FILTROS */
@@ -405,22 +423,33 @@ font-size:26px;
 
 .btn-sair{
 
-flex-shrink: 0;                   /* não encolhe */
-background: #e53935;
-color: white;
-border: none;
-padding: 10px 16px;
-border-radius: 6px;
-cursor: pointer;
-font-weight: bold;
-white-space: nowrap;
+flex-shrink:0;
+
+background:#ef4444;
+
+color:white;
+
+border:none;
+
+padding:10px 18px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-weight:600;
+
+transition:all .2s;
+
 }
 
 .btn-sair:hover{
 
-background: #c62828;
+background:#dc2626;
+transform:translateY(-1px);
 
 }
+
 
 
 
