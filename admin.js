@@ -6,168 +6,133 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 const loginBox = document.getElementById("loginBox");
 const adminPanel = document.getElementById("adminPanel");
 
-/* LOGIN */
-
-document
-.getElementById("loginForm")
-.addEventListener("submit", async (e)=>{
-
-e.preventDefault();
-
-const email = document.getElementById("email").value;
-const password = document.getElementById("password").value;
-
-const { error } = await supabaseClient.auth.signInWithPassword({
-email,
-password
-});
-
-if(error){
-
-alert("Erro no login: " + error.message);
-
-}else{
-
-verificarSessao();
-
+/* =========================
+FUNÇÃO PARA GERAR SLUG
+========================= */
+function gerarSlug(texto){
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 
+/* =========================
+LOGIN
+========================= */
+document.getElementById("loginForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+  if(error){
+    alert("Erro no login: " + error.message);
+  } else {
+    verificarSessao();
+  }
 });
 
-/* VERIFICAR SESSÃO */
-
+/* =========================
+VERIFICAR SESSÃO
+========================= */
 async function verificarSessao(){
+  const { data: { session } } = await supabaseClient.auth.getSession();
 
-const { data: { session } } = await supabaseClient.auth.getSession();
-
-if(session){
-
-loginBox.classList.add("hidden");
-adminPanel.classList.remove("hidden");
-
-carregarCorretores();
-
-}else{
-
-loginBox.classList.remove("hidden");
-adminPanel.classList.add("hidden");
-
-}
-
+  if(session){
+    loginBox.classList.add("hidden");
+    adminPanel.classList.remove("hidden");
+    carregarCorretores();
+  } else {
+    loginBox.classList.remove("hidden");
+    adminPanel.classList.add("hidden");
+  }
 }
 
 verificarSessao();
 
-/* CARREGAR CORRETORES */
-
+/* =========================
+CARREGAR CORRETORES
+========================= */
 async function carregarCorretores(){
+  const { data } = await supabaseClient.from("corretores").select("id,nome");
 
-const { data } = await supabaseClient
-.from("corretores")
-.select("id,nome");
+  const select = document.getElementById("corretor");
+  select.innerHTML = '<option value="">Selecionar corretor</option>';
 
-const select = document.getElementById("corretor");
+  data.forEach(c => {
+    const option = document.createElement("option");
+    option.value = c.id;
+    option.textContent = c.nome;
+    select.appendChild(option);
+  });
+}
 
-select.innerHTML = '<option value="">Selecionar corretor</option>';
+/* =========================
+SALVAR IMÓVEL
+========================= */
+document.getElementById("form-imovel").addEventListener("submit", async (e)=>{
+  e.preventDefault();
 
-data.forEach(c => {
+  const corretor_id = document.getElementById("corretor").value;
+  if(!corretor_id){
+    alert("Selecione um corretor");
+    return;
+  }
 
-const option = document.createElement("option");
+  const titulo = document.getElementById("titulo").value;
+  const tipo = document.getElementById("tipo").value;
+  const preco = parseFloat(document.getElementById("preco").value);
+  const quartos = parseInt(document.getElementById("quartos").value);
+  const banheiros = parseInt(document.getElementById("banheiros").value);
+  const area = parseInt(document.getElementById("area").value);
+  const imagem = document.getElementById("imagem").value;
+  const tour = document.getElementById("tour").value;
+  const slug = gerarSlug(titulo);
 
-option.value = c.id;
-option.textContent = c.nome;
+  /* Inserir imóvel */
+  const { data, error } = await supabaseClient
+    .from("imoveis")
+    .insert({
+      titulo,
+      tipo,
+      preco,
+      quartos,
+      banheiros,
+      area,
+      imagem,
+      tour,
+      slug,
+      corretor_id
+    })
+    .select()
+    .single();
 
-select.appendChild(option);
+  if(error){
+    console.error(error);
+    alert("Erro: " + error.message);
+    return;
+  }
 
+  const imovel_id = data.id;
+
+  /* Salvar extras */
+  const extras = [...document.querySelectorAll(".extra:checked")].map(e => e.value);
+  for(const extra of extras){
+    await supabaseClient.from("imovel_extras").insert({ imovel_id, extra });
+  }
+
+  alert("Imóvel cadastrado com sucesso!");
+  document.getElementById("form-imovel").reset();
 });
 
-}
-
-/* SALVAR IMÓVEL */
-
-document
-.getElementById("form-imovel")
-.addEventListener("submit", async (e)=>{
-
-e.preventDefault();
-
-const corretor_id = document.getElementById("corretor").value;
-
-if(!corretor_id){
-
-alert("Selecione um corretor");
-return;
-
-}
-
-const titulo = document.getElementById("titulo").value;
-const tipo = document.getElementById("tipo").value;
-const preco = document.getElementById("preco").value;
-const quartos = document.getElementById("quartos").value;
-const banheiros = document.getElementById("banheiros").value;
-const area = document.getElementById("area").value;
-const imagem = document.getElementById("imagem").value;
-const tour = document.getElementById("tour").value;
-const slug = document.getElementById("slug").value;
-
-/* INSERIR IMÓVEL */
-
-const { data, error } = await supabaseClient
-.from("imoveis")
-.insert({
-titulo,
-tipo,
-preco,
-quartos,
-banheiros,
-area,
-imagem,
-tour,
-slug,
-corretor_id
-})
-.select()
-.single();
-
-if(error){
-
-alert("Erro: " + error.message);
-return;
-
-}
-
-const imovel_id = data.id;
-
-/* PEGAR EXTRAS */
-
-const extras = [...document.querySelectorAll(".extra:checked")]
-.map(e => e.value);
-
-/* SALVAR EXTRAS */
-
-for(const extra of extras){
-
-await supabaseClient
-.from("imovel_extras")
-.insert({
-imovel_id: imovel_id,
-extra: extra
-});
-
-}
-
-alert("Imóvel cadastrado!");
-
-document.getElementById("form-imovel").reset();
-
-});
-
-/* LOGOUT */
-
+/* =========================
+LOGOUT
+========================= */
 async function logout(){
-
-await supabaseClient.auth.signOut();
-
-location.reload();
-
+  await supabaseClient.auth.signOut();
+  location.reload();
 }
