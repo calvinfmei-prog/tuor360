@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/:corretor/:imovel",
+      "destination": "/imovel.html?corretor=:corretor&imovel=:imovel"
+    },
+    {
       "source": "/:corretor",
       "destination": "/painel.html?corretor=:corretor"
     }
