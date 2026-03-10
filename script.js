@@ -38,19 +38,19 @@ async function acessar(event){
       return;
     }
 
-    // salva dados do corretor
     sessionStorage.setItem("corretorId", data.id);
     sessionStorage.setItem("corretorNome", data.nome);
 
     if(data.slug){
       sessionStorage.setItem("corretorSlug", data.slug);
-    }
 
-    // redireciona para URL profissional
-    if(data.slug){
+      // URL profissional
       window.location.href = "/" + data.slug;
+
     }else{
+
       window.location.href = "painel.html";
+
     }
 
   }catch(e){
@@ -67,7 +67,7 @@ async function acessar(event){
 ROUTER PARA URLS PROFISSIONAIS
 ========================= */
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", function(){
 
   const path = window.location.pathname.replace(/^\/|\/$/g, "");
 
@@ -78,30 +78,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const slugCorretor = partes[0];
 
-  try{
-
-    const { data: corretor, error } = await supabaseClient
-      .from("corretores")
-      .select("*")
-      .eq("slug", slugCorretor)
-      .maybeSingle();
-
-    if(error || !corretor) return;
-
-    // salva sessão automaticamente
-    sessionStorage.setItem("corretorId", corretor.id);
-    sessionStorage.setItem("corretorNome", corretor.nome);
-    sessionStorage.setItem("corretorSlug", corretor.slug);
-
-    // se ainda não estiver no painel, redireciona
-    if(!window.location.pathname.includes("painel.html")){
-      window.location.href = "/painel.html";
-    }
-
-  }catch(e){
-
-    console.error("Erro no router:", e);
-
-  }
+  // redireciona para o painel mantendo o slug
+  window.location.href = "/painel.html?corretor=" + slugCorretor;
 
 });
