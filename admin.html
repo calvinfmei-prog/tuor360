@@ -13,25 +13,33 @@
 
 <style>
 
-.admin-container{
-max-width:600px;
+body{
+font-family:Arial;
+background:#f4f6f9;
+}
+
+.container{
+max-width:500px;
 margin:auto;
+margin-top:80px;
+background:white;
 padding:30px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
 
-.admin-container h1{
+h1{
 text-align:center;
-margin-bottom:30px;
+margin-bottom:25px;
 }
 
-.admin-form{
+form{
 display:flex;
 flex-direction:column;
 gap:12px;
 }
 
-.admin-form input,
-.admin-form select{
+input, select{
 
 padding:10px;
 border-radius:6px;
@@ -40,7 +48,7 @@ font-size:14px;
 
 }
 
-.admin-form button{
+button{
 
 background:#1976d2;
 color:white;
@@ -52,13 +60,17 @@ font-weight:bold;
 
 }
 
-.admin-form button:hover{
-background:#1565c0;
+button:hover{
+background:#145aa3;
 }
 
-.btn-logout{
-margin-top:20px;
+.logout{
 background:#e53935;
+margin-top:20px;
+}
+
+.hidden{
+display:none;
 }
 
 </style>
@@ -67,11 +79,33 @@ background:#e53935;
 
 <body>
 
-<div class="admin-container">
+<!-- LOGIN -->
 
-<h1>Painel Admin</h1>
+<div id="loginBox" class="container">
 
-<form id="form-imovel" class="admin-form">
+<h1>Login Admin</h1>
+
+<form id="loginForm">
+
+<input id="email" type="email" placeholder="Email" required>
+
+<input id="password" type="password" placeholder="Senha" required>
+
+<button type="submit">
+Entrar
+</button>
+
+</form>
+
+</div>
+
+<!-- PAINEL -->
+
+<div id="adminPanel" class="container hidden">
+
+<h1>Cadastrar Imóvel</h1>
+
+<form id="form-imovel">
 
 <input id="titulo" placeholder="Título do imóvel" required>
 
@@ -86,7 +120,7 @@ background:#e53935;
 
 <input id="banheiros" type="number" placeholder="Banheiros">
 
-<input id="area" type="number" placeholder="Área (m²)">
+<input id="area" type="number" placeholder="Área m²">
 
 <input id="imagem" placeholder="URL da imagem">
 
@@ -98,7 +132,7 @@ Salvar imóvel
 
 </form>
 
-<button onclick="logout()" class="btn-logout">
+<button onclick="logout()" class="logout">
 Sair
 </button>
 
