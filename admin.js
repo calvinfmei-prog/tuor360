@@ -148,8 +148,8 @@ for(const extra of extras){
 await supabaseClient
 .from("imovel_extras")
 .insert({
-imovel_id,
-nome: extra
+imovel_id: imovel_id,
+extra: extra
 });
 
 }
