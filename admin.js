@@ -83,9 +83,13 @@ document.getElementById("form-imovel").addEventListener("submit", async (e)=>{
     return;
   }
 
+  
   const titulo = document.getElementById("titulo").value;
   const tipo = document.getElementById("tipo").value;
-  const preco = parseFloat(document.getElementById("preco").value);
+  // Captura o valor do input
+  let precoRaw = document.getElementById("preco").value;
+  // Remove pontos de milhar e troca vírgula por ponto
+  const preco = parseFloat(precoRaw.replace(/\./g, "").replace(",", "."));
   const quartos = parseInt(document.getElementById("quartos").value);
   const banheiros = parseInt(document.getElementById("banheiros").value);
   const area = parseInt(document.getElementById("area").value);
