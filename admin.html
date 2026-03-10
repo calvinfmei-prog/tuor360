@@ -40,16 +40,13 @@ gap:12px;
 }
 
 input, select{
-
 padding:10px;
 border-radius:6px;
 border:1px solid #ddd;
 font-size:14px;
-
 }
 
 button{
-
 background:#1976d2;
 color:white;
 border:none;
@@ -57,7 +54,6 @@ padding:12px;
 border-radius:6px;
 cursor:pointer;
 font-weight:bold;
-
 }
 
 button:hover{
@@ -71,6 +67,21 @@ margin-top:20px;
 
 .hidden{
 display:none;
+}
+
+.extras-box{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-top:5px;
+}
+
+.extra-item{
+background:#f1f1f1;
+padding:6px 10px;
+border-radius:20px;
+font-size:13px;
+cursor:pointer;
 }
 
 </style>
@@ -107,6 +118,10 @@ Entrar
 
 <form id="form-imovel">
 
+<select id="corretor">
+<option value="">Selecionar corretor</option>
+</select>
+
 <input id="titulo" placeholder="Título do imóvel" required>
 
 <select id="tipo">
@@ -125,6 +140,32 @@ Entrar
 <input id="imagem" placeholder="URL da imagem">
 
 <input id="tour" placeholder="Link do tour 360">
+
+<label>Extras do imóvel</label>
+
+<div class="extras-box">
+
+<label class="extra-item">
+<input type="checkbox" value="Piscina" class="extra"> Piscina
+</label>
+
+<label class="extra-item">
+<input type="checkbox" value="Garagem" class="extra"> Garagem
+</label>
+
+<label class="extra-item">
+<input type="checkbox" value="Churrasqueira" class="extra"> Churrasqueira
+</label>
+
+<label class="extra-item">
+<input type="checkbox" value="Varanda" class="extra"> Varanda
+</label>
+
+<label class="extra-item">
+<input type="checkbox" value="Área gourmet" class="extra"> Área gourmet
+</label>
+
+</div>
 
 <button type="submit">
 Salvar imóvel
