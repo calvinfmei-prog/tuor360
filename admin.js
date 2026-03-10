@@ -86,7 +86,7 @@ document.getElementById("form-imovel").addEventListener("submit", async (e)=>{
   
   const titulo = document.getElementById("titulo").value;
   const tipo = document.getElementById("tipo").value;
-  const preco = parseInt(document.getElementById("preco").value);
+  const preco = document.getElementById("preco").value;
   const quartos = parseInt(document.getElementById("quartos").value);
   const banheiros = parseInt(document.getElementById("banheiros").value);
   const area = parseInt(document.getElementById("area").value);
