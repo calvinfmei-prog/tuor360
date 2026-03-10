@@ -7,15 +7,15 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 LER PARÂMETROS DA URL
 ========================= */
 
-const params = new URLSearchParams(window.location.search);
+const path = window.location.pathname.replace(/^\/|\/$/g, "");
 
-const idParam = params.get("id");
-const slugImovel = params.get("imovel");
+const partes = path.split("/");
 
-const id = idParam ? parseInt(idParam) : null;
+const slugCorretor = partes[0] || null;
+const slugImovel = partes[1] || null;
 
-console.log("ID:", id);
-console.log("Slug:", slugImovel);
+console.log("Corretor:", slugCorretor);
+console.log("Imóvel:", slugImovel);
 
 /* =========================
 CARREGAR IMÓVEL
@@ -30,13 +30,13 @@ let error;
 
 if(id){
 
-const response = await supabaseClient
+const { data: imovel, error } = await supabaseClient
 .from("imoveis")
 .select(`
 *,
 corretores ( whatsapp )
 `)
-.eq("id", id)
+.eq("slug", slugImovel)
 .single();
 
 imovel = response.data;
