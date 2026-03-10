@@ -1,5 +1,13 @@
 const params = new URLSearchParams(window.location.search);
-const slugCorretor = params.get("corretor");
+let slugCorretor = params.get("corretor");
+
+// se não tiver ?corretor= pega direto da URL
+if(!slugCorretor){
+  const path = window.location.pathname.replace(/^\/|\/$/g, "");
+  if(path){
+    slugCorretor = path.split("/")[0];
+  }
+}
 
 const supabaseUrl = "https://zhgfyqkihwyuteexzxgp.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoZ2Z5cWtpaHd5dXRlZXh6eGdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNTI5ODYsImV4cCI6MjA4ODYyODk4Nn0.CvVtLoNM_YRf2pU6wuyeeoLiKTPRDIBuIzQpLZL5e64";
@@ -14,7 +22,7 @@ let whatsappCorretor = "";
 async function inicializarCorretor(){
 
   // se veio pela URL
-  if(slugCorretor){
+  if(slugCorretor && !corretorId){
 
     const { data: corretor } = await supabaseClient
       .from("corretores")
