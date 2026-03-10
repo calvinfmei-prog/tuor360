@@ -67,10 +67,11 @@ async function acessar(event){
 ROUTER PARA URLS PROFISSIONAIS
 ========================= */
 
-document.addEventListener("DOMContentLoaded", async function(){
+document.addEventListener("DOMContentLoaded", async () => {
 
   const path = window.location.pathname.replace(/^\/|\/$/g, "");
 
+  // se estiver na home não faz nada
   if(!path) return;
 
   const partes = path.split("/");
@@ -87,11 +88,15 @@ document.addEventListener("DOMContentLoaded", async function(){
 
     if(error || !corretor) return;
 
+    // salva sessão automaticamente
     sessionStorage.setItem("corretorId", corretor.id);
     sessionStorage.setItem("corretorNome", corretor.nome);
     sessionStorage.setItem("corretorSlug", corretor.slug);
 
-    console.log("Corretor carregado via URL:", corretor.nome);
+    // se ainda não estiver no painel, redireciona
+    if(!window.location.pathname.includes("painel.html")){
+      window.location.href = "/painel.html";
+    }
 
   }catch(e){
 
