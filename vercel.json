@@ -3,12 +3,12 @@
     { "handle": "filesystem" },
 
     {
-      "src": "^/([^/]+)/([^/]+)$",
+      "src": "^/([^/.]+)/([^/.]+)$",
       "dest": "/imovel.html?corretor=$1&imovel=$2"
     },
 
     {
-      "src": "^/([^/]+)$",
+      "src": "^/([^/.]+)$",
       "dest": "/painel.html?corretor=$1"
     }
   ]
