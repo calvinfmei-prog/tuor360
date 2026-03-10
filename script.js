@@ -79,6 +79,5 @@ document.addEventListener("DOMContentLoaded", function(){
   const slugCorretor = partes[0];
 
   // redireciona para o painel mantendo o slug
-  window.location.href = "/painel.html?corretor=" + slugCorretor;
-
+  window.location.href = "/" + data.slug;
 });
