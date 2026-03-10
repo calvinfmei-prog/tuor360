@@ -115,7 +115,7 @@ async function carregarImoveis(tipo = "todos"){
 
         <h4>R$ ${imovel.preco}</h4>
 
-        <a href="imovel.html?id=${imovel.id}" class="btn-preto">
+        <a href="/${slugCorretor}/${imovel.slug}" class="btn-preto">
         Ver Imóvel
         </a>
 
