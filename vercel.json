@@ -1,12 +1,15 @@
 {
-  "rewrites": [
+  "routes": [
+    { "handle": "filesystem" },
+
     {
-      "source": "/:corretor/:imovel",
-      "destination": "/imovel.html?corretor=:corretor&imovel=:imovel"
+      "src": "^/([^/]+)/([^/]+)$",
+      "dest": "/imovel.html?corretor=$1&imovel=$2"
     },
+
     {
-      "source": "/:corretor",
-      "destination": "/painel.html?corretor=:corretor"
+      "src": "^/([^/]+)$",
+      "dest": "/painel.html?corretor=$1"
     }
   ]
 }
