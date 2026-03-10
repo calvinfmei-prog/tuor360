@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Painel Admin</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.admin-container{
+max-width:600px;
+margin:auto;
+padding:30px;
+}
+
+.admin-container h1{
+text-align:center;
+margin-bottom:30px;
+}
+
+.admin-form{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.admin-form input,
+.admin-form select{
+
+padding:10px;
+border-radius:6px;
+border:1px solid #ddd;
+font-size:14px;
+
+}
+
+.admin-form button{
+
+background:#1976d2;
+color:white;
+border:none;
+padding:12px;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+
+}
+
+.admin-form button:hover{
+background:#1565c0;
+}
+
+.btn-logout{
+margin-top:20px;
+background:#e53935;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="admin-container">
+
+<h1>Painel Admin</h1>
+
+<form id="form-imovel" class="admin-form">
+
+<input id="titulo" placeholder="Título do imóvel" required>
+
+<select id="tipo">
+<option value="venda">Venda</option>
+<option value="aluguel">Aluguel</option>
+</select>
+
+<input id="preco" placeholder="Preço">
+
+<input id="quartos" type="number" placeholder="Quartos">
+
+<input id="banheiros" type="number" placeholder="Banheiros">
+
+<input id="area" type="number" placeholder="Área (m²)">
+
+<input id="imagem" placeholder="URL da imagem">
+
+<input id="tour" placeholder="Link do tour 360">
+
+<button type="submit">
+Salvar imóvel
+</button>
+
+</form>
+
+<button onclick="logout()" class="btn-logout">
+Sair
+</button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="admin.js"></script>
+
+</body>
+
+</html>
