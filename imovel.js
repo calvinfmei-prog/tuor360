@@ -3,16 +3,34 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-const params = new URLSearchParams(window.location.search);
-const id = parseInt(params.get("id"));
+/* =========================
+LER PARÂMETROS DA URL
+========================= */
 
-console.log("ID do imóvel:", id);
+const params = new URLSearchParams(window.location.search);
+
+const idParam = params.get("id");
+const slugImovel = params.get("imovel");
+
+const id = idParam ? parseInt(idParam) : null;
+
+console.log("ID:", id);
+console.log("Slug:", slugImovel);
+
+/* =========================
+CARREGAR IMÓVEL
+========================= */
 
 async function carregar(){
 
-/* BUSCAR IMÓVEL */
+let imovel;
+let error;
 
-const { data: imovel, error } = await supabaseClient
+/* BUSCA PELO ID (modo antigo) */
+
+if(id){
+
+const response = await supabaseClient
 .from("imoveis")
 .select(`
 *,
@@ -21,6 +39,29 @@ corretores ( whatsapp )
 .eq("id", id)
 .single();
 
+imovel = response.data;
+error = response.error;
+
+}
+
+/* BUSCA PELO SLUG (modo novo) */
+
+else if(slugImovel){
+
+const response = await supabaseClient
+.from("imoveis")
+.select(`
+*,
+corretores ( whatsapp )
+`)
+.eq("slug", slugImovel)
+.single();
+
+imovel = response.data;
+error = response.error;
+
+}
+
 if(error){
 console.error("Erro ao carregar imóvel:", error);
 return;
@@ -28,7 +69,9 @@ return;
 
 console.log("Imóvel:", imovel);
 
-/* PREENCHER DADOS */
+/* =========================
+PREENCHER DADOS
+========================= */
 
 document.getElementById("titulo").innerText = imovel.titulo;
 
@@ -39,14 +82,18 @@ imovel.quartos + " quartos • " +
 imovel.banheiros + " banheiros • " +
 imovel.area + "m²";
 
-/* WHATSAPP */
+/* =========================
+WHATSAPP
+========================= */
 
 if(imovel.corretores){
 document.getElementById("whatsapp").href =
 "https://wa.me/" + imovel.corretores.whatsapp;
 }
 
-/* TOUR */
+/* =========================
+TOUR
+========================= */
 
 if(imovel.tour){
 document.getElementById("tour").innerHTML = `
@@ -60,12 +107,14 @@ allowfullscreen>
 `;
 }
 
-/* BUSCAR EXTRAS */
+/* =========================
+BUSCAR EXTRAS
+========================= */
 
 const { data: extras, error: erroExtras } = await supabaseClient
 .from("imovel_extras")
 .select("extra")
-.eq("imovel_id", id);
+.eq("imovel_id", imovel.id);
 
 console.log("Extras encontrados:", extras);
 
@@ -89,7 +138,10 @@ const iconesExtras = {
 "Portaria 24h": "🛡️",
 "Ar Condicionado": "❄️"
 };
-/* MOSTRAR EXTRAS */
+
+/* =========================
+MOSTRAR EXTRAS
+========================= */
 
 if(extras && extras.length > 0){
 
