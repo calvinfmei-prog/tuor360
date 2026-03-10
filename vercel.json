@@ -1,15 +1,13 @@
 {
   "routes": [
     { "handle": "filesystem" },
-
     {
       "src": "^/([^/.]+)/([^/.]+)$",
-      "dest": "/imovel.html?corretor=$1&imovel=$2"
+      "dest": "/imovel.html"
     },
-
     {
       "src": "^/([^/.]+)$",
-      "dest": "/painel.html?corretor=$1"
+      "dest": "/painel.html"
     }
   ]
 }
