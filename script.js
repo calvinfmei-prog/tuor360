@@ -78,6 +78,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
   const slugCorretor = partes[0];
 
-  // redireciona para o painel mantendo o slug
-  window.location.href = "/" + data.slug;
+  // salva o slug caso tenha entrado direto pela URL
+  if(slugCorretor){
+    sessionStorage.setItem("corretorSlug", slugCorretor);
+  }
+
 });
