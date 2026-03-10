@@ -45,6 +45,8 @@ if(session){
 loginBox.classList.add("hidden");
 adminPanel.classList.remove("hidden");
 
+carregarCorretores();
+
 }else{
 
 loginBox.classList.remove("hidden");
@@ -56,6 +58,31 @@ adminPanel.classList.add("hidden");
 
 verificarSessao();
 
+/* CARREGAR CORRETORES */
+
+async function carregarCorretores(){
+
+const { data } = await supabaseClient
+.from("corretores")
+.select("id,nome");
+
+const select = document.getElementById("corretor");
+
+select.innerHTML = '<option value="">Selecionar corretor</option>';
+
+data.forEach(c => {
+
+const option = document.createElement("option");
+
+option.value = c.id;
+option.textContent = c.nome;
+
+select.appendChild(option);
+
+});
+
+}
+
 /* SALVAR IMÓVEL */
 
 document
@@ -63,6 +90,15 @@ document
 .addEventListener("submit", async (e)=>{
 
 e.preventDefault();
+
+const corretor_id = document.getElementById("corretor").value;
+
+if(!corretor_id){
+
+alert("Selecione um corretor");
+return;
+
+}
 
 const titulo = document.getElementById("titulo").value;
 const tipo = document.getElementById("tipo").value;
@@ -73,17 +109,9 @@ const area = document.getElementById("area").value;
 const imagem = document.getElementById("imagem").value;
 const tour = document.getElementById("tour").value;
 
-/* BUSCAR CORRETOR */
+/* INSERIR IMÓVEL */
 
-const { data: corretor } = await supabaseClient
-.from("corretores")
-.select("id")
-.limit(1)
-.single();
-
-/* INSERIR */
-
-const { error } = await supabaseClient
+const { data, error } = await supabaseClient
 .from("imoveis")
 .insert({
 titulo,
@@ -94,20 +122,41 @@ banheiros,
 area,
 imagem,
 tour,
-corretor_id: corretor.id
-});
+corretor_id
+})
+.select()
+.single();
 
 if(error){
 
 alert("Erro: " + error.message);
+return;
 
-}else{
+}
+
+const imovel_id = data.id;
+
+/* PEGAR EXTRAS */
+
+const extras = [...document.querySelectorAll(".extra:checked")]
+.map(e => e.value);
+
+/* SALVAR EXTRAS */
+
+for(const extra of extras){
+
+await supabaseClient
+.from("imovel_extras")
+.insert({
+imovel_id,
+nome: extra
+});
+
+}
 
 alert("Imóvel cadastrado!");
 
 document.getElementById("form-imovel").reset();
-
-}
 
 });
 
