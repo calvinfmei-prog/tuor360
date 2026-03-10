@@ -4,7 +4,7 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 /* =========================
-LER PARÂMETROS DA URL
+LER SLUG DA URL
 ========================= */
 
 const path = window.location.pathname.replace(/^\/|\/$/g, "");
@@ -23,12 +23,11 @@ CARREGAR IMÓVEL
 
 async function carregar(){
 
-let imovel;
-let error;
-
-/* BUSCA PELO ID (modo antigo) */
-
-if(id){
+if(!slugImovel){
+console.error("Slug do imóvel não encontrado na URL.");
+document.body.innerHTML = "Imóvel não encontrado.";
+return;
+}
 
 const { data: imovel, error } = await supabaseClient
 .from("imoveis")
@@ -39,31 +38,14 @@ corretores ( whatsapp )
 .eq("slug", slugImovel)
 .single();
 
-imovel = response.data;
-error = response.error;
-
-}
-
-/* BUSCA PELO SLUG (modo novo) */
-
-else if(slugImovel){
-
-const response = await supabaseClient
-.from("imoveis")
-.select(`
-*,
-corretores ( whatsapp )
-`)
-.eq("slug", slugImovel)
-.single();
-
-imovel = response.data;
-error = response.error;
-
-}
-
 if(error){
 console.error("Erro ao carregar imóvel:", error);
+document.body.innerHTML = "Erro ao carregar imóvel.";
+return;
+}
+
+if(!imovel){
+document.body.innerHTML = "Imóvel não encontrado.";
 return;
 }
 
@@ -96,6 +78,7 @@ TOUR
 ========================= */
 
 if(imovel.tour){
+
 document.getElementById("tour").innerHTML = `
 <iframe
 width="100%"
@@ -105,6 +88,7 @@ frameborder="0"
 allowfullscreen>
 </iframe>
 `;
+
 }
 
 /* =========================
@@ -126,7 +110,12 @@ extrasDiv.innerHTML = "Erro ao carregar extras.";
 return;
 }
 
+/* =========================
+ÍCONES DOS EXTRAS
+========================= */
+
 const iconesExtras = {
+
 "Piscina": "🏊",
 "Garagem": "🚗",
 "Academia": "🏋️",
@@ -137,6 +126,7 @@ const iconesExtras = {
 "Jardim": "🌳",
 "Portaria 24h": "🛡️",
 "Ar Condicionado": "❄️"
+
 };
 
 /* =========================
@@ -167,5 +157,9 @@ extrasDiv.innerHTML = "Nenhum extra informado.";
 }
 
 }
+
+/* =========================
+INICIAR
+========================= */
 
 carregar();
