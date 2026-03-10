@@ -30,6 +30,25 @@ whatsappCorretor = data.whatsapp;
 
 }
 
+let corretorId = sessionStorage.getItem("corretorId");
+
+if(slugCorretor){
+
+  const { data: corretor } = await supabaseClient
+    .from("corretores")
+    .select("*")
+    .eq("slug", slugCorretor)
+    .single();
+
+  if(corretor){
+    corretorId = corretor.id;
+
+    sessionStorage.setItem("corretorId", corretor.id);
+    sessionStorage.setItem("corretorNome", corretor.nome);
+  }
+
+}
+
 async function carregarImoveis(tipo = "todos") {
 
 await carregarCorretor();
