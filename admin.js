@@ -3,31 +3,58 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-const ADMIN_UID = "0cde13d4-2d6f-46f0-af7a-efc20965e2d1";
+const loginBox = document.getElementById("loginBox");
+const adminPanel = document.getElementById("adminPanel");
 
-/* VERIFICAR LOGIN */
+/* LOGIN */
 
-async function verificarLogin(){
+document
+.getElementById("loginForm")
+.addEventListener("submit", async (e)=>{
 
-const { data: { user }, error } = await supabaseClient.auth.getUser();
+e.preventDefault();
 
-if(!user){
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
 
-alert("Você precisa estar logado.");
-window.location.href = "/";
+const { error } = await supabaseClient.auth.signInWithPassword({
+email,
+password
+});
 
-return;
+if(error){
+
+alert("Erro no login: " + error.message);
+
+}else{
+
+verificarSessao();
 
 }
 
-if(user.id !== ADMIN_UID){
+});
 
-alert("Acesso negado.");
-window.location.href = "/";
+/* VERIFICAR SESSÃO */
+
+async function verificarSessao(){
+
+const { data: { session } } = await supabaseClient.auth.getSession();
+
+if(session){
+
+loginBox.classList.add("hidden");
+adminPanel.classList.remove("hidden");
+
+}else{
+
+loginBox.classList.remove("hidden");
+adminPanel.classList.add("hidden");
 
 }
 
 }
+
+verificarSessao();
 
 /* SALVAR IMÓVEL */
 
@@ -46,7 +73,7 @@ const area = document.getElementById("area").value;
 const imagem = document.getElementById("imagem").value;
 const tour = document.getElementById("tour").value;
 
-/* BUSCAR SEU ID DE CORRETOR */
+/* BUSCAR CORRETOR */
 
 const { data: corretor } = await supabaseClient
 .from("corretores")
@@ -54,7 +81,7 @@ const { data: corretor } = await supabaseClient
 .limit(1)
 .single();
 
-/* INSERIR IMÓVEL */
+/* INSERIR */
 
 const { error } = await supabaseClient
 .from("imoveis")
@@ -90,8 +117,6 @@ async function logout(){
 
 await supabaseClient.auth.signOut();
 
-window.location.href = "/";
+location.reload();
 
 }
-
-verificarLogin();
