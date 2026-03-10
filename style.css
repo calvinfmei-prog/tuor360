@@ -336,6 +336,12 @@ background:#16a34a;
 
 }
 
+.login-box input:focus{
+outline:none;
+border-color:#22c55e;
+box-shadow:0 0 0 2px rgba(34,197,94,0.2);
+}
+
 /* ERRO */
 
 .erro{
@@ -415,6 +421,7 @@ white-space: nowrap;
 background: #c62828;
 
 }
+
 
 
 
