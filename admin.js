@@ -108,6 +108,7 @@ const banheiros = document.getElementById("banheiros").value;
 const area = document.getElementById("area").value;
 const imagem = document.getElementById("imagem").value;
 const tour = document.getElementById("tour").value;
+const slug = document.getElementById("slug").value;
 
 /* INSERIR IMÓVEL */
 
@@ -122,6 +123,7 @@ banheiros,
 area,
 imagem,
 tour,
+slug,
 corretor_id
 })
 .select()
