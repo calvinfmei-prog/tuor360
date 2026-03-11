@@ -87,7 +87,7 @@ document.getElementById("totalImoveis").innerText = imoveis.length;
 // valor da carteira
 const disponiveis = imoveis.filter(i => i.status !== "vendido");
 
-const valorCarteira = disponiveis.reduce((soma,i)=> soma + Number(i.preco),0);
+const valorCarteira = disponiveis.reduce((soma,i)=> soma + Number(i.preco.replace(/\./g,"")),0);
 
 document.getElementById("valorCarteira").innerText =
 valorCarteira.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -96,7 +96,7 @@ valorCarteira.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 // valor vendido
 const vendidos = imoveis.filter(i => i.status === "vendido");
 
-const valorVendido = vendidos.reduce((soma,i)=> soma + Number(i.preco),0);
+const valorVendido = vendidos.reduce((soma,i)=> soma + Number(i.preco.replace(/\./g,"")),0);
 
 document.getElementById("valorVendido").innerText =
 valorVendido.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -149,7 +149,7 @@ item.innerHTML = `
 <h3>${imovel.titulo}</h3>
 
 <p>
-${Number(imovel.preco).toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}
+${Number(imovel.preco.replace(/\./g,"")).toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}
 </p>
 
 <p>
@@ -187,15 +187,49 @@ const confirmar = confirm("Deseja excluir este imóvel?");
 
 if(!confirmar) return;
 
-await supabaseClient
+const { error } = await supabaseClient
 .from("imoveis")
 .delete()
 .eq("id", id);
 
+if(error){
+alert("Erro ao excluir");
+console.error(error);
+return;
+}
+
+alert("Imóvel excluído!");
+
 location.reload();
 
 }
+// =============================
+// MARCAR VENDIDO
+// =============================
+async function marcarVendido(id){
 
+const confirmar = confirm("Marcar este imóvel como vendido?");
+
+if(!confirmar) return;
+
+const { error } = await supabaseClient
+.from("imoveis")
+.update({status:"vendido"})
+.eq("id", id);
+
+if(error){
+
+alert("Erro ao atualizar");
+console.error(error);
+return;
+
+}
+
+alert("Imóvel marcado como vendido");
+
+location.reload();
+
+}
 
 // =============================
 // EDITAR IMÓVEL
