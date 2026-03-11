@@ -13,7 +13,7 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 // =============================
 
 let corretor_id = null;
-
+let corretor_nome = "";
 
 // =============================
 // INICIAR DASHBOARD
@@ -52,6 +52,7 @@ return;
 }
 
 corretor_id = data.id;
+corretor_nome = data.nome;
 
 
 // carregar dashboard
