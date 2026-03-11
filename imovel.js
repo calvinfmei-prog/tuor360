@@ -52,6 +52,31 @@ return;
 console.log("Imóvel:", imovel);
 
 /* =========================
+ESTATÍSTICAS (REGISTRAR VISITA)
+========================= */
+
+await supabaseClient
+.from("visitas_imoveis")
+.insert({
+imovel_id: imovel.id
+});
+
+/* =========================
+ESTATÍSTICAS (CONTAR VISITAS)
+========================= */
+
+const { count } = await supabaseClient
+.from("visitas_imoveis")
+.select("*", { count: "exact", head: true })
+.eq("imovel_id", imovel.id);
+
+const viewsEl = document.getElementById("views");
+
+if(viewsEl){
+viewsEl.innerText = count;
+}
+
+/* =========================
 Dados para whatsapp
 ========================= */
 
