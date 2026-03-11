@@ -493,6 +493,69 @@ border-radius:8px;
 margin-bottom:15px;
 }
 
+/* ============================= */
+/* LOGIN DASH*/
+/* ============================= */
+
+.login-body{
+
+background:#f4f6f8;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+margin:0;
+
+}
+
+.login-container{
+
+background:white;
+padding:40px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+width:320px;
+text-align:center;
+
+}
+
+.login-container h1{
+
+margin-bottom:25px;
+font-size:24px;
+
+}
+
+.login-container input{
+
+width:100%;
+padding:10px;
+margin-bottom:15px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:14px;
+
+}
+
+.login-container button{
+
+width:100%;
+padding:12px;
+background:#25D366;
+border:none;
+color:white;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+
+}
+
+.login-container button:hover{
+
+background:#1ebe5a;
+
+}
+
 
 
 
