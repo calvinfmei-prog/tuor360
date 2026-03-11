@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<h1>Dashboard do Corretor</h1>
+
+<div class="cards">
+
+<div class="card">
+<h3>Imóveis cadastrados</h3>
+<p id="totalImoveis">0</p>
+</div>
+
+<div class="card">
+<h3>Valor da carteira</h3>
+<p id="valorCarteira">R$ 0</p>
+</div>
+
+<div class="card">
+<h3>Valor vendido</h3>
+<p id="valorVendido">R$ 0</p>
+</div>
+
+<div class="card">
+<h3>Visualizações totais</h3>
+<p id="totalViews">0</p>
+</div>
+
+</div>
+
+<h2>Meus imóveis</h2>
+
+<div id="listaImoveis"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/dashboard.js"></script>
+
+</body>
+
+</html>
