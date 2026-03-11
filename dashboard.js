@@ -67,9 +67,8 @@ carregarDashboard();
 
 async function carregarDashboard(){
 
-
 document.getElementById("nomeCorretor").innerText =
-`Olá, ${data.nome}`;
+`Olá, ${corretor_nome}`;
   
 // pegar imóveis do corretor
 const { data: imoveis } = await supabaseClient
