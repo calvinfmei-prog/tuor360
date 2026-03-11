@@ -76,6 +76,14 @@ if(viewsEl){
 viewsEl.innerText = count;
 }
 
+const { data, error } = await supabaseClient
+.from("visitas_imoveis")
+.insert({
+  imovel_id: imovel.id
+});
+
+console.log("insert visita:", data, error);
+
 /* =========================
 Dados para whatsapp
 ========================= */
