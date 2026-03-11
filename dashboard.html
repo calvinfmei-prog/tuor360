@@ -6,13 +6,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Dashboard</title>
+<title>Dashboard do Corretor</title>
 
 <link rel="stylesheet" href="/style.css">
 
 </head>
 
 <body>
+
+<div class="dashboard-container">
 
 <h1>Dashboard do Corretor</h1>
 
@@ -44,7 +46,15 @@
 
 <div id="listaImoveis"></div>
 
+</div>
+
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const { createClient } = supabase;
+</script>
+
 <script src="/dashboard.js"></script>
 
 </body>
