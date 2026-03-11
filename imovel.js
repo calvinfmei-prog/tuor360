@@ -52,8 +52,17 @@ return;
 console.log("Imóvel:", imovel);
 
 /* =========================
-ESTATÍSTICAS (REGISTRAR VISITA)
+ESTATÍSTICAS (1 VISITA A CADA 12H)
 ========================= */
+
+const chaveVisita = "visita_imovel_" + imovel.id;
+
+const agora = Date.now();
+const ultimaVisita = localStorage.getItem(chaveVisita);
+
+const limite = 12 * 60 * 60 * 1000; // 12 horas em ms
+
+if(!ultimaVisita || (agora - ultimaVisita) > limite){
 
 await supabaseClient
 .from("visitas_imoveis")
@@ -61,6 +70,9 @@ await supabaseClient
 imovel_id: imovel.id
 });
 
+localStorage.setItem(chaveVisita, agora);
+
+}
 /* =========================
 ESTATÍSTICAS (CONTAR VISITAS)
 ========================= */
