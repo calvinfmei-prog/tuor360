@@ -76,8 +76,6 @@ if(viewsEl){
 viewsEl.innerText = count;
 }
 
-console.log("insert visita:", data, error);
-
 /* =========================
 Dados para whatsapp
 ========================= */
