@@ -1,3 +1,11 @@
+const { data } = await supabaseClient.auth.getUser();
+
+if(!data.user){
+
+window.location.href = "/login.html";
+
+}
+
 // =============================
 // CONEXÃO SUPABASE
 // =============================
