@@ -464,6 +464,34 @@ font-size:14px;
 color:#777;
 }
 
+/* DASHBOARD CORRETOR */
+
+.dashboard-container{
+max-width:1000px;
+margin:auto;
+padding:20px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin-bottom:30px;
+}
+
+.card{
+background:#f7f7f7;
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+
+.imovel-admin{
+border:1px solid #ddd;
+padding:15px;
+border-radius:8px;
+margin-bottom:15px;
+}
 
 
 
