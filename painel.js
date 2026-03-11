@@ -48,7 +48,7 @@ async function inicializarCorretor(){
   }
 
   document.getElementById("titulo").innerText =
-  "Imóveis de Exclusivos" + corretorNome;
+  "Imóveis Exclusivos de " + corretorNome;
 
 }
 
