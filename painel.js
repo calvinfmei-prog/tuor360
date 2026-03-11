@@ -110,6 +110,7 @@ async function carregarImoveis(tipo = "todos"){
 
         <p>
         ${imovel.quartos} quartos •
+        ${imovel.banheiros} banheiros •
         ${imovel.area}m²
         </p>
 
