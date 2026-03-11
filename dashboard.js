@@ -1,11 +1,3 @@
-const { data } = await supabaseClient.auth.getUser();
-
-if(!data.user){
-
-window.location.href = "/login.html";
-
-}
-
 // =============================
 // CONEXÃO SUPABASE
 // =============================
@@ -17,35 +9,52 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 
 // =============================
-// PEGAR CORRETOR DA URL
-// exemplo: /dashboard.html?corretor=bruno-aprigio
+// VARIÁVEIS
 // =============================
-
-const params = new URLSearchParams(window.location.search);
-const corretorSlug = params.get("corretor");
 
 let corretor_id = null;
 
 
 // =============================
-// BUSCAR CORRETOR
+// INICIAR DASHBOARD
 // =============================
 
-async function carregarCorretor(){
+async function iniciarDashboard(){
+
+// verificar login
+const { data: userData } = await supabaseClient.auth.getUser();
+
+if(!userData.user){
+
+window.location.href = "/login.html";
+return;
+
+}
+
+const userId = userData.user.id;
+
+
+// =============================
+// BUSCAR CORRETOR PELO USER_ID
+// =============================
 
 const { data, error } = await supabaseClient
 .from("corretores")
 .select("*")
-.eq("slug", corretorSlug)
+.eq("user_id", userId)
 .single();
 
 if(error){
-console.error("Erro corretor", error);
+
+console.error("Erro ao buscar corretor", error);
 return;
+
 }
 
 corretor_id = data.id;
 
+
+// carregar dashboard
 carregarDashboard();
 
 }
@@ -185,7 +194,7 @@ location.reload();
 
 
 // =============================
-// EDITAR IMÓVEL (placeholder)
+// EDITAR IMÓVEL
 // =============================
 
 function editarImovel(id){
@@ -199,4 +208,4 @@ window.location.href = `/admin.html?id=${id}`;
 // INICIAR
 // =============================
 
-carregarCorretor();
+iniciarDashboard();
