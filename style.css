@@ -451,6 +451,19 @@ transform:translateY(-1px);
 }
 
 
+/* Info + Visualização */
+.info-linha{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:10px;
+}
+
+.views{
+font-size:14px;
+color:#777;
+}
+
 
 
 
