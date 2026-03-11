@@ -52,6 +52,25 @@ return;
 console.log("Imóvel:", imovel);
 
 /* =========================
+Dados para whatsapp
+========================= */
+
+document.querySelector('meta[property="og:title"]')
+.setAttribute("content", imovel.titulo);
+
+document.querySelector('meta[property="og:description"]')
+.setAttribute(
+"content",
+`${imovel.quartos} quartos • ${imovel.area}m² • R$ ${imovel.preco}`
+);
+
+document.querySelector('meta[property="og:image"]')
+.setAttribute("content", imovel.imagem);
+
+document.querySelector('meta[property="og:url"]')
+.setAttribute("content", window.location.href);
+
+/* =========================
 PREENCHER DADOS
 ========================= */
 
