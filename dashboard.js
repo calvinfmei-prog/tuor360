@@ -164,6 +164,10 @@ Status: ${imovel.status || "disponível"}
 Editar
 </button>
 
+<button onclick="marcarVendido(${imovel.id})">
+Vendido
+</button>
+
 <button onclick="excluirImovel(${imovel.id})">
 Excluir
 </button>
