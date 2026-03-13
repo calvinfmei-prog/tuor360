@@ -14,6 +14,8 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 let corretor_id = null;
 let corretor_nome = "";
+let imovelEditando = null;
+
 
 // =============================
 // INICIAR DASHBOARD
@@ -21,21 +23,18 @@ let corretor_nome = "";
 
 async function iniciarDashboard(){
 
-// verificar login
 const { data: userData } = await supabaseClient.auth.getUser();
 
 if(!userData.user){
-
 window.location.href = "/login.html";
 return;
-
 }
 
 const userId = userData.user.id;
 
 
 // =============================
-// BUSCAR CORRETOR PELO USER_ID
+// BUSCAR CORRETOR
 // =============================
 
 const { data, error } = await supabaseClient
@@ -45,17 +44,13 @@ const { data, error } = await supabaseClient
 .single();
 
 if(error){
-
 console.error("Erro ao buscar corretor", error);
 return;
-
 }
 
 corretor_id = data.id;
 corretor_nome = data.nome;
 
-
-// carregar dashboard
 carregarDashboard();
 
 }
@@ -70,7 +65,6 @@ async function carregarDashboard(){
 document.getElementById("nomeCorretor").innerText =
 `Olá, ${corretor_nome}`;
   
-// pegar imóveis do corretor
 const { data: imoveis } = await supabaseClient
 .from("imoveis")
 .select("*")
@@ -84,7 +78,7 @@ const { data: imoveis } = await supabaseClient
 document.getElementById("totalImoveis").innerText = imoveis.length;
 
 
-// valor da carteira
+// valor carteira
 const disponiveis = imoveis.filter(i => i.status !== "vendido");
 
 const valorCarteira = disponiveis.reduce((soma,i)=> soma + Number(i.preco.replace(/\./g,"")),0);
@@ -113,16 +107,12 @@ const { data: visitas } = await supabaseClient
 .select("imovel_id")
 .in("imovel_id", ids);
 
-
-// contar visitas por imóvel
 const views = {};
 
 visitas.forEach(v=>{
 views[v.imovel_id] = (views[v.imovel_id] || 0) + 1;
 });
 
-
-// total views
 const totalViews = visitas.length;
 
 document.getElementById("totalViews").innerText = totalViews;
@@ -207,9 +197,12 @@ alert("Imóvel excluído!");
 location.reload();
 
 }
+
+
 // =============================
 // MARCAR VENDIDO
 // =============================
+
 async function marcarVendido(id){
 
 const confirmar = confirm("Marcar este imóvel como vendido?");
@@ -222,11 +215,9 @@ const { error } = await supabaseClient
 .eq("id", id);
 
 if(error){
-
 alert("Erro ao atualizar");
 console.error(error);
 return;
-
 }
 
 alert("Imóvel marcado como vendido");
@@ -235,13 +226,76 @@ location.reload();
 
 }
 
+
 // =============================
-// EDITAR IMÓVEL
+// EDITAR IMÓVEL (MODAL)
 // =============================
 
-function editarImovel(id){
+async function editarImovel(id){
 
-window.location.href = `/admin.html?id=${id}`;
+imovelEditando = id;
+
+const { data, error } = await supabaseClient
+.from("imoveis")
+.select("*")
+.eq("id", id)
+.single();
+
+if(error){
+console.error(error);
+return;
+}
+
+document.getElementById("editTitulo").value = data.titulo;
+document.getElementById("editPreco").value = data.preco;
+document.getElementById("editStatus").value = data.status || "disponivel";
+
+document.getElementById("modalEditar").style.display = "flex";
+
+}
+
+
+// =============================
+// SALVAR EDIÇÃO
+// =============================
+
+async function salvarEdicao(){
+
+const titulo = document.getElementById("editTitulo").value;
+const preco = document.getElementById("editPreco").value;
+const status = document.getElementById("editStatus").value;
+
+const { error } = await supabaseClient
+.from("imoveis")
+.update({
+titulo,
+preco,
+status
+})
+.eq("id", imovelEditando);
+
+if(error){
+alert("Erro ao salvar");
+console.error(error);
+return;
+}
+
+alert("Imóvel atualizado!");
+
+fecharModal();
+
+carregarDashboard();
+
+}
+
+
+// =============================
+// FECHAR MODAL
+// =============================
+
+function fecharModal(){
+
+document.getElementById("modalEditar").style.display = "none";
 
 }
 
