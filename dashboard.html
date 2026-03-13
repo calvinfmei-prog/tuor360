@@ -59,27 +59,42 @@ const { createClient } = supabase;
 
 <script src="/dashboard.js"></script>
 
-<div id="modalEditar" class="modal">
+<div id="modalEditar" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); align-items:center; justify-content:center;">
 
-<div class="modal-content">
+<div style="background:white; padding:30px; border-radius:10px; width:520px; max-height:90vh; overflow:auto;">
 
 <h2>Editar Imóvel</h2>
 
-<input id="editTitulo" placeholder="Título">
+<input id="editTitulo" placeholder="Título" style="width:100%; margin-bottom:10px">
 
-<input id="editPreco" placeholder="Preço">
+<input id="editPreco" placeholder="Preço (ex: 850.000)" style="width:100%; margin-bottom:10px">
 
-<select id="editStatus">
-<option value="disponivel">Disponível</option>
-<option value="vendido">Vendido</option>
+<div style="display:flex; gap:10px; margin-bottom:10px">
+  <input id="editQuartos" placeholder="Quartos" style="flex:1">
+  <input id="editBanheiros" placeholder="Banheiros" style="flex:1">
+</div>
+
+<input id="editArea" placeholder="Área m² (ex: 80)" style="width:100%; margin-bottom:10px">
+
+<label>Status</label>
+<select id="editStatus" style="width:100%; margin-bottom:15px">
+  <option value="disponivel">Disponível</option>
+  <option value="vendido">Vendido</option>
 </select>
 
-<div style="margin-top:20px">
+<h3>Extras</h3>
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:20px">
+
+  <label><input type="checkbox" id="extraPiscina"> Piscina</label>
+  <label><input type="checkbox" id="extraGaragem"> Garagem</label>
+  <label><input type="checkbox" id="extraAcademia"> Academia</label>
+  <label><input type="checkbox" id="extraGourmet"> Área Gourmet</label>
+
+</div>
 
 <button onclick="salvarEdicao()">Salvar</button>
 <button onclick="fecharModal()">Cancelar</button>
-
-</div>
 
 </div>
 
