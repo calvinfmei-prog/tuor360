@@ -262,7 +262,7 @@ document.getElementById("editStatus").value = data.status || "disponivel";
 
 const { data: extrasData } = await supabaseClient
 .from("imovel_extras")
-.select("nome")
+.select("extra")
 .eq("imovel_id", id);
 
 const extras = extrasData ? extrasData.map(e => e.nome) : [];
