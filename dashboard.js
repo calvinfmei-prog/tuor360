@@ -7,7 +7,6 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-
 // =============================
 // VARIÁVEIS
 // =============================
@@ -81,7 +80,7 @@ document.getElementById("totalImoveis").innerText = imoveis.length;
 // valor carteira
 const disponiveis = imoveis.filter(i => i.status !== "vendido");
 
-const valorCarteira = disponiveis.reduce((soma,i)=> soma + Number(i.preco.replace(/\./g,"")),0);
+const valorCarteira = disponiveis.reduce((soma,i)=> soma + Number((i.preco || "0").replace(/\./g,"")),0);
 
 document.getElementById("valorCarteira").innerText =
 valorCarteira.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -90,7 +89,7 @@ valorCarteira.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 // valor vendido
 const vendidos = imoveis.filter(i => i.status === "vendido");
 
-const valorVendido = vendidos.reduce((soma,i)=> soma + Number(i.preco.replace(/\./g,"")),0);
+const valorVendido = vendidos.reduce((soma,i)=> soma + Number((i.preco || "0").replace(/\./g,"")),0);
 
 document.getElementById("valorVendido").innerText =
 valorVendido.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -102,18 +101,47 @@ valorVendido.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 
 const ids = imoveis.map(i => i.id);
 
+
+// buscar extras
+const { data: extrasData } = await supabaseClient
+.from("imovel_extras")
+.select("imovel_id, extra")
+.in("imovel_id", ids);
+
+
+// organizar extras por imóvel
+const extrasPorImovel = {};
+
+if(extrasData){
+extrasData.forEach(e=>{
+
+if(!extrasPorImovel[e.imovel_id]){
+extrasPorImovel[e.imovel_id] = [];
+}
+
+extrasPorImovel[e.imovel_id].push(e.extra);
+
+});
+}
+
+
+// buscar visitas
 const { data: visitas } = await supabaseClient
 .from("visitas_imoveis")
 .select("imovel_id")
 .in("imovel_id", ids);
 
+
+// contar visualizações
 const views = {};
 
+if(visitas){
 visitas.forEach(v=>{
 views[v.imovel_id] = (views[v.imovel_id] || 0) + 1;
 });
+}
 
-const totalViews = visitas.length;
+const totalViews = visitas ? visitas.length : 0;
 
 document.getElementById("totalViews").innerText = totalViews;
 
@@ -130,6 +158,8 @@ imoveis.forEach(imovel => {
 
 const viewCount = views[imovel.id] || 0;
 
+const extras = extrasPorImovel[imovel.id] || [];
+
 const item = document.createElement("div");
 
 item.className = "imovel-admin";
@@ -139,7 +169,13 @@ item.innerHTML = `
 <h3>${imovel.titulo}</h3>
 
 <p>
-${Number(imovel.preco.replace(/\./g,"")).toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}
+${Number((imovel.preco || "0").replace(/\./g,"")).toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}
+</p>
+
+<p>
+🛏️ ${imovel.quartos || 0} quartos • 
+🚿 ${imovel.banheiros || 0} banheiros • 
+📐 ${imovel.area || 0} m²
 </p>
 
 <p>
@@ -148,6 +184,10 @@ ${Number(imovel.preco.replace(/\./g,"")).toLocaleString("pt-BR",{style:"currency
 
 <p>
 Status: ${imovel.status || "disponível"}
+</p>
+
+<p>
+⭐ Extras: ${extras.length ? extras.join(", ") : "Nenhum"}
 </p>
 
 <button onclick="editarImovel(${imovel.id})">
@@ -278,6 +318,7 @@ document.getElementById("modalEditar").style.display = "flex";
 
 }
 
+
 // =============================
 // SALVAR EDIÇÃO
 // =============================
@@ -366,6 +407,7 @@ fecharModal();
 carregarDashboard();
 
 }
+
 
 // =============================
 // FECHAR MODAL
