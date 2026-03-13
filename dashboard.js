@@ -248,12 +248,26 @@ return;
 
 document.getElementById("editTitulo").value = data.titulo;
 document.getElementById("editPreco").value = data.preco;
+
+document.getElementById("editQuartos").value = data.quartos || "";
+document.getElementById("editBanheiros").value = data.banheiros || "";
+document.getElementById("editArea").value = data.area || "";
+
 document.getElementById("editStatus").value = data.status || "disponivel";
+
+
+// extras
+const extras = data.extras || [];
+
+document.getElementById("extraPiscina").checked = extras.includes("Piscina");
+document.getElementById("extraGaragem").checked = extras.includes("Garagem");
+document.getElementById("extraAcademia").checked = extras.includes("Academia");
+document.getElementById("extraGourmet").checked = extras.includes("Área Gourmet");
+
 
 document.getElementById("modalEditar").style.display = "flex";
 
 }
-
 
 // =============================
 // SALVAR EDIÇÃO
@@ -263,14 +277,33 @@ async function salvarEdicao(){
 
 const titulo = document.getElementById("editTitulo").value;
 const preco = document.getElementById("editPreco").value;
+
+const quartos = document.getElementById("editQuartos").value;
+const banheiros = document.getElementById("editBanheiros").value;
+const area = document.getElementById("editArea").value;
+
 const status = document.getElementById("editStatus").value;
+
+
+// extras
+let extras = [];
+
+if(document.getElementById("extraPiscina").checked) extras.push("Piscina");
+if(document.getElementById("extraGaragem").checked) extras.push("Garagem");
+if(document.getElementById("extraAcademia").checked) extras.push("Academia");
+if(document.getElementById("extraGourmet").checked) extras.push("Área Gourmet");
+
 
 const { error } = await supabaseClient
 .from("imoveis")
 .update({
 titulo,
 preco,
-status
+quartos,
+banheiros,
+area,
+status,
+extras
 })
 .eq("id", imovelEditando);
 
@@ -283,11 +316,9 @@ return;
 alert("Imóvel atualizado!");
 
 fecharModal();
-
 carregarDashboard();
 
 }
-
 
 // =============================
 // FECHAR MODAL
