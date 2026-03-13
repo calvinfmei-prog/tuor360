@@ -256,8 +256,17 @@ document.getElementById("editArea").value = data.area || "";
 document.getElementById("editStatus").value = data.status || "disponivel";
 
 
-// extras
-const extras = data.extras || [];
+// =============================
+// BUSCAR EXTRAS
+// =============================
+
+const { data: extrasData } = await supabaseClient
+.from("imoveis_extra")
+.select("nome")
+.eq("imovel_id", id);
+
+const extras = extrasData ? extrasData.map(e => e.nome) : [];
+
 
 document.getElementById("extraPiscina").checked = extras.includes("Piscina");
 document.getElementById("extraGaragem").checked = extras.includes("Garagem");
@@ -285,14 +294,9 @@ const area = document.getElementById("editArea").value;
 const status = document.getElementById("editStatus").value;
 
 
-// extras
-let extras = [];
-
-if(document.getElementById("extraPiscina").checked) extras.push("Piscina");
-if(document.getElementById("extraGaragem").checked) extras.push("Garagem");
-if(document.getElementById("extraAcademia").checked) extras.push("Academia");
-if(document.getElementById("extraGourmet").checked) extras.push("Área Gourmet");
-
+// =============================
+// ATUALIZAR IMÓVEL
+// =============================
 
 const { error } = await supabaseClient
 .from("imoveis")
@@ -302,15 +306,58 @@ preco,
 quartos,
 banheiros,
 area,
-status,
-extras
+status
 })
 .eq("id", imovelEditando);
 
 if(error){
-alert("Erro ao salvar");
+alert("Erro ao salvar imóvel");
 console.error(error);
 return;
+}
+
+
+// =============================
+// CAPTURAR EXTRAS
+// =============================
+
+let extras = [];
+
+if(document.getElementById("extraPiscina").checked) extras.push("Piscina");
+if(document.getElementById("extraGaragem").checked) extras.push("Garagem");
+if(document.getElementById("extraAcademia").checked) extras.push("Academia");
+if(document.getElementById("extraGourmet").checked) extras.push("Área Gourmet");
+
+
+// =============================
+// REMOVER EXTRAS ANTIGOS
+// =============================
+
+await supabaseClient
+.from("imoveis_extra")
+.delete()
+.eq("imovel_id", imovelEditando);
+
+
+// =============================
+// INSERIR NOVOS EXTRAS
+// =============================
+
+const extrasInsert = extras.map(extra => ({
+imovel_id: imovelEditando,
+nome: extra
+}));
+
+if(extrasInsert.length > 0){
+
+const { error: errorExtras } = await supabaseClient
+.from("imoveis_extra")
+.insert(extrasInsert);
+
+if(errorExtras){
+console.error(errorExtras);
+}
+
 }
 
 alert("Imóvel atualizado!");
