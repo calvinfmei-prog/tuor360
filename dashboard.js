@@ -265,7 +265,7 @@ const { data: extrasData } = await supabaseClient
 .select("extra")
 .eq("imovel_id", id);
 
-const extras = extrasData ? extrasData.map(e => e.nome) : [];
+const extras = extrasData ? extrasData.map(e => e.extra) : [];
 
 
 document.getElementById("extraPiscina").checked = extras.includes("Piscina");
@@ -345,7 +345,7 @@ await supabaseClient
 
 const extrasInsert = extras.map(extra => ({
 imovel_id: imovelEditando,
-nome: extra
+extra: extra
 }));
 
 if(extrasInsert.length > 0){
