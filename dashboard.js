@@ -261,7 +261,7 @@ document.getElementById("editStatus").value = data.status || "disponivel";
 // =============================
 
 const { data: extrasData } = await supabaseClient
-.from("imovel_extra")
+.from("imovel_extras")
 .select("nome")
 .eq("imovel_id", id);
 
@@ -334,7 +334,7 @@ if(document.getElementById("extraGourmet").checked) extras.push("Área Gourmet")
 // =============================
 
 await supabaseClient
-.from("imovel_extra")
+.from("imovel_extras")
 .delete()
 .eq("imovel_id", imovelEditando);
 
@@ -351,7 +351,7 @@ nome: extra
 if(extrasInsert.length > 0){
 
 const { error: errorExtras } = await supabaseClient
-.from("imovel_extra")
+.from("imovel_extras")
 .insert(extrasInsert);
 
 if(errorExtras){
