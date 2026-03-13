@@ -65,36 +65,61 @@ const { createClient } = supabase;
 
 <h2>Editar Imóvel</h2>
 
-<input id="editTitulo" placeholder="Título" style="width:100%; margin-bottom:10px">
+<label>Título do imóvel</label>
+<input id="editTitulo" placeholder="Ex: Casa de Alto Padrão" style="width:100%; margin-bottom:15px">
 
-<input id="editPreco" placeholder="Preço (ex: 850.000)" style="width:100%; margin-bottom:10px">
+<label>Preço</label>
+<input id="editPreco" placeholder="Ex: 850.000" style="width:100%; margin-bottom:15px">
 
-<div style="display:flex; gap:10px; margin-bottom:10px">
-  <input id="editQuartos" placeholder="Quartos" style="flex:1">
-  <input id="editBanheiros" placeholder="Banheiros" style="flex:1">
+<label>Características</label>
+
+<div style="display:flex; gap:10px; margin-bottom:15px">
+
+<div style="flex:1">
+<label>Quartos</label>
+<input id="editQuartos" placeholder="Ex: 3" style="width:100%">
 </div>
 
-<input id="editArea" placeholder="Área m² (ex: 80)" style="width:100%; margin-bottom:10px">
+<div style="flex:1">
+<label>Banheiros</label>
+<input id="editBanheiros" placeholder="Ex: 2" style="width:100%">
+</div>
 
-<label>Status</label>
-<select id="editStatus" style="width:100%; margin-bottom:15px">
-  <option value="disponivel">Disponível</option>
-  <option value="vendido">Vendido</option>
+</div>
+
+<label>Área (m²)</label>
+<input id="editArea" placeholder="Ex: 120" style="width:100%; margin-bottom:15px">
+
+<label>Status do imóvel</label>
+<select id="editStatus" style="width:100%; margin-bottom:20px">
+
+<option value="disponivel">Disponível</option>
+<option value="vendido">Vendido</option>
+
 </select>
 
-<h3>Extras</h3>
+<h3>Extras do imóvel</h3>
 
 <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:20px">
 
-  <label><input type="checkbox" id="extraPiscina"> Piscina</label>
-  <label><input type="checkbox" id="extraGaragem"> Garagem</label>
-  <label><input type="checkbox" id="extraAcademia"> Academia</label>
-  <label><input type="checkbox" id="extraGourmet"> Área Gourmet</label>
+<label><input type="checkbox" id="extraPiscina"> Piscina</label>
+<label><input type="checkbox" id="extraGaragem"> Garagem</label>
+<label><input type="checkbox" id="extraAcademia"> Academia</label>
+<label><input type="checkbox" id="extraGourmet"> Área Gourmet</label>
 
 </div>
 
-<button onclick="salvarEdicao()">Salvar</button>
-<button onclick="fecharModal()">Cancelar</button>
+<div style="display:flex; gap:10px">
+
+<button onclick="salvarEdicao()" style="flex:1">
+Salvar alterações
+</button>
+
+<button onclick="fecharModal()" style="flex:1">
+Cancelar
+</button>
+
+</div>
 
 </div>
 
