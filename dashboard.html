@@ -59,6 +59,32 @@ const { createClient } = supabase;
 
 <script src="/dashboard.js"></script>
 
+<div id="modalEditar" class="modal">
+
+<div class="modal-content">
+
+<h2>Editar Imóvel</h2>
+
+<input id="editTitulo" placeholder="Título">
+
+<input id="editPreco" placeholder="Preço">
+
+<select id="editStatus">
+<option value="disponivel">Disponível</option>
+<option value="vendido">Vendido</option>
+</select>
+
+<div style="margin-top:20px">
+
+<button onclick="salvarEdicao()">Salvar</button>
+<button onclick="fecharModal()">Cancelar</button>
+
+</div>
+
+</div>
+
+</div>
+
 </body>
 
 </html>
