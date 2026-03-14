@@ -98,6 +98,10 @@ async function carregarImoveis(tipo = "todos"){
 
   data.forEach(imovel => {
 
+    const status = imovel.status === "vendido"
+      ? '<span class="status-vendido">🔴 Vendido</span>'
+      : '<span class="status-disponivel">🟢 Disponível</span>';
+
     lista.innerHTML += `
 
     <div class="card">
@@ -108,6 +112,10 @@ async function carregarImoveis(tipo = "todos"){
 
         <h3>${imovel.titulo}</h3>
 
+        <p class="status-imovel">
+        ${status}
+        </p>
+
         <p>
         ${imovel.quartos} quartos •
         ${imovel.banheiros} banheiros •
@@ -115,6 +123,7 @@ async function carregarImoveis(tipo = "todos"){
         </p>
 
         <h4>R$ ${imovel.preco}</h4>
+    
 
         <a href="/${slugCorretor}/${imovel.slug}" class="btn-preto">
         Ver Imóvel
