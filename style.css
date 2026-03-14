@@ -1004,7 +1004,68 @@ color:#999;
 
 }
 
+/* HEADER PAINEL */
 
+.painel-header{
+
+position:relative;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:white;
+
+padding:22px 28px;
+
+border-radius:16px;
+
+box-shadow:0 6px 20px rgba(0,0,0,0.08);
+
+margin-bottom:25px;
+
+}
+
+.titulo-central{
+
+margin:0;
+
+font-size:26px;
+
+font-weight:700;
+
+text-align:center;
+
+color:#111;
+
+}
+
+.btn-sair{
+
+position:absolute;
+
+right:20px;
+
+background:#ef4444;
+color:white;
+
+border:none;
+
+padding:8px 16px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-weight:600;
+
+}
+
+.btn-sair:hover{
+
+background:#dc2626;
+
+}
 
 
 
