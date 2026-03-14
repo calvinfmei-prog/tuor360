@@ -579,7 +579,22 @@ width:500px;
 max-width:90%;
 }
 
+/* ============================= */
+/* STATUS DOS IMÓVEIS*/
+/* ============================= */
 
+.status-imovel{
+font-weight:bold;
+margin-bottom:8px;
+}
+
+.status-disponivel{
+color:#16a34a;
+}
+
+.status-vendido{
+color:#dc2626;
+}
 
 
 
