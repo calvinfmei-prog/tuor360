@@ -78,6 +78,48 @@ const { createClient } = supabase;
 
 <script src="/dashboard.js"></script>
 
+
+<div id="modalEditar" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); align-items:center; justify-content:center;">
+
+<div style="background:white; padding:30px; border-radius:10px; width:520px; max-height:90vh; overflow:auto;">
+
+<h2>Editar Imóvel</h2>
+
+<label>Título do imóvel</label>
+<input id="editTitulo" style="width:100%; margin-bottom:15px">
+
+<label>Preço</label>
+<input id="editPreco" style="width:100%; margin-bottom:15px">
+
+<label>Quartos</label>
+<input id="editQuartos" style="width:100%; margin-bottom:15px">
+
+<label>Banheiros</label>
+<input id="editBanheiros" style="width:100%; margin-bottom:15px">
+
+<label>Área</label>
+<input id="editArea" style="width:100%; margin-bottom:15px">
+
+<label>Status</label>
+<select id="editStatus" style="width:100%; margin-bottom:20px">
+<option value="disponivel">Disponível</option>
+<option value="vendido">Vendido</option>
+</select>
+
+<h3>Extras</h3>
+
+<label><input type="checkbox" id="extraPiscina"> Piscina</label>
+<label><input type="checkbox" id="extraGaragem"> Garagem</label>
+<label><input type="checkbox" id="extraAcademia"> Academia</label>
+<label><input type="checkbox" id="extraGourmet"> Área Gourmet</label>
+
+<br><br>
+
+<button onclick="salvarEdicao()">Salvar</button>
+<button onclick="fecharModal()">Cancelar</button>
+
+</div>
+</div>
 </body>
 
 </html>
