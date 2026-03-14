@@ -52,6 +52,22 @@ return;
 console.log("Imóvel:", imovel);
 
 /* =========================
+SELO VENDIDO
+========================= */
+
+if(imovel.status === "vendido"){
+
+const selo = document.createElement("div");
+
+selo.className = "selo-vendido";
+
+selo.innerText = "VENDIDO";
+
+document.body.appendChild(selo);
+
+}
+  
+/* =========================
 ESTATÍSTICAS (1 VISITA A CADA 12H)
 ========================= */
 
@@ -114,6 +130,18 @@ PREENCHER DADOS
 document.getElementById("titulo").innerText = imovel.titulo;
 
 document.getElementById("preco").innerText = "R$ " + imovel.preco;
+
+const statusEl = document.getElementById("status");
+
+if(imovel.status === "vendido"){
+
+statusEl.innerHTML = "🔴 Vendido";
+
+}else{
+
+statusEl.innerHTML = "🟢 Disponível";
+
+}
 
 document.getElementById("info").innerText =
 imovel.quartos + " quartos • " +
