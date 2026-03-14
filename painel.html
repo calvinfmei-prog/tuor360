@@ -10,27 +10,56 @@
 
 <link rel="stylesheet" href="/style.css">
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
 <div class="painel-container">
 
-<header class="painel-header">
+<!-- HEADER -->
 
-<h1 id="titulo"></h1>
+<header class="dashboard-header">
 
-<button onclick="logout()" class="btn-sair">Sair</button>
+<div>
+
+<h1>Imóveis 360</h1>
+<p id="titulo"></p>
+
+</div>
+
+<button onclick="logout()" class="btn-sair">
+Sair
+</button>
 
 </header>
 
+<!-- FILTROS -->
+
 <div class="filtros">
 
-<button onclick="filtrar('todos')">Todos</button>
-<button onclick="filtrar('venda')">Venda</button>
-<button onclick="filtrar('aluguel')">Aluguel</button>
+<button onclick="filtrar('todos')">
+Todos
+</button>
+
+<button onclick="filtrar('venda')">
+Venda
+</button>
+
+<button onclick="filtrar('aluguel')">
+Aluguel
+</button>
 
 </div>
+
+<!-- TÍTULO DA LISTA -->
+
+<h2 class="titulo-secao">
+Imóveis disponíveis
+</h2>
+
+<!-- LISTA -->
 
 <div id="listaImoveis" class="lista"></div>
 
