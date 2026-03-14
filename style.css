@@ -659,6 +659,8 @@ box-shadow:0 6px 20px rgba(0,0,0,0.06);
 
 transition:0.25s;
 
+min-height:80px;
+
 }
 
 .card-metrica span{
@@ -690,9 +692,18 @@ font-weight:500;
 .card-metrica p{
 
 margin:0;
-font-size:22px;
+
+font-size:20px;
+
 font-weight:700;
+
 color:#111;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
 
 }
 
