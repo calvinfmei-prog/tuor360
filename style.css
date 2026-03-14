@@ -580,7 +580,7 @@ max-width:90%;
 }
 
 /* ============================= */
-/* STATUS DOS IMÓVEIS*/
+/* STATUS DOS IMÓVEIS(PAINEL)*/
 /* ============================= */
 
 .status-imovel{
@@ -596,8 +596,28 @@ color:#16a34a;
 color:#dc2626;
 }
 
+/* ============================= */
+/* STATUS DOS IMÓVEIS(IMOVEIS)*/
+/* ============================= */
+.status-imovel{
+font-size:18px;
+font-weight:bold;
+margin-bottom:10px;
+}
 
-
+.selo-vendido{
+position:fixed;
+top:20px;
+right:-60px;
+background:#dc2626;
+color:white;
+padding:12px 80px;
+font-weight:bold;
+font-size:18px;
+transform:rotate(45deg);
+z-index:999;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
 
 
 
