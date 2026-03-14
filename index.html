@@ -6,23 +6,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Acesso aos Imóveis</title>
+<title>Imóveis 360</title>
 
 <link rel="stylesheet" href="/style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
 <body class="login">
 
-<div class="login-box">
+<div class="login-wrapper">
 
-<h2>Imóveis 360</h2>
+<div class="login-card">
 
-<p>Digite o código do corretor</p>
+<div class="login-header">
 
-<form onsubmit="acessar(event)">
+<h1>Imóveis 360</h1>
+<p>Acesso exclusivo do corretor</p>
+
+</div>
+
+<form class="login-form" onsubmit="acessar(event)">
+
+<label>Código do corretor</label>
 
 <input
 type="text"
@@ -32,11 +39,19 @@ autocomplete="off"
 required
 >
 
-<button type="submit">Entrar</button>
+<button type="submit">
+Acessar imóveis
+</button>
 
 </form>
 
 <div class="erro" id="erro"></div>
+
+<div class="login-footer">
+Sistema de tour virtual imobiliário
+</div>
+
+</div>
 
 </div>
 
