@@ -3,7 +3,12 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-async function login(){
+async function login(event){
+
+// impede reload do form
+if(event){
+event.preventDefault();
+}
 
 const email = document.getElementById("email").value;
 const senha = document.getElementById("senha").value;
@@ -16,7 +21,6 @@ password: senha
 if(error){
 
 alert("Erro no login");
-
 return;
 
 }
