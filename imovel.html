@@ -8,20 +8,15 @@
 
 <title>Imóvel</title>
 
-<!-- Open Graph (WhatsApp / Facebook / LinkedIn) -->
+<!-- Open Graph -->
 
 <meta property="og:type" content="website">
-
 <meta property="og:title" content="Veja este imóvel em tour virtual 360°">
-
 <meta property="og:description" content="Clique para abrir o tour virtual do imóvel">
-
 <meta property="og:image" content="https://tuor360.vercel.app/img/preview.jpg">
-
 <meta property="og:url" content="https://tuor360.vercel.app">
 
 <meta name="twitter:card" content="summary_large_image">
-<!-- Open Graph (WhatsApp / Facebook / LinkedIn) -->
 
 <link rel="stylesheet" href="/style.css">
 
@@ -31,31 +26,42 @@
 
 <div class="imovel-container">
 
-<h1 id="titulo"></h1>
+<div class="imovel-card">
 
-<h2 id="preco"></h2>
+<h1 id="titulo"></h1>
 
 <p id="status" class="status-imovel"></p>
 
-<h3>Extras do imóvel</h3>
-<div id="extras" class="extras"></div>
-
-<a id="whatsapp" class="btn-verde">
-Falar com o Corretor no WhatsApp
-</a>
+<h2 id="preco" class="preco"></h2>
 
 <div class="info-linha">
 
 <p id="info"></p>
 
 <p class="views">
-👀 <span id="views">0</span> 
- visualizações 
+👀 <span id="views">0</span> visualizações
 </p>
 
 </div>
 
+<h3 class="titulo-secao">Extras do imóvel</h3>
+
+<div id="extras" class="extras"></div>
+
+<a id="whatsapp" class="btn-verde">
+Falar com o Corretor no WhatsApp
+</a>
+
+</div>
+
+
+<div class="tour-container">
+
+<h3 class="titulo-secao">Tour Virtual 360°</h3>
+
 <div id="tour"></div>
+
+</div>
 
 </div>
 
