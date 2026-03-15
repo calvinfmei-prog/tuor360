@@ -1067,7 +1067,48 @@ background:#dc2626;
 
 }
 
+/* FILTROS PAINEL.HTML */
 
+.barra-filtros{
+
+display:flex;
+gap:12px;
+
+margin-bottom:25px;
+
+flex-wrap:wrap;
+
+}
+
+.barra-filtros input{
+
+flex:1;
+
+padding:12px;
+
+border-radius:8px;
+
+border:1px solid #ddd;
+
+font-size:14px;
+
+}
+
+.barra-filtros select{
+
+padding:12px;
+
+border-radius:8px;
+
+border:1px solid #ddd;
+
+font-size:14px;
+
+background:white;
+
+cursor:pointer;
+
+}
 
 
 
