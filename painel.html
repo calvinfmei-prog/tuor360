@@ -32,19 +32,26 @@ Sair
 
 <!-- FILTROS -->
 
-<div class="filtros">
+<div class="barra-filtros">
 
-<button onclick="filtrar('todos')">
-Todos
-</button>
+<input 
+type="text"
+id="busca"
+placeholder="🔎 Buscar imóvel..."
+oninput="aplicarFiltros()"
+>
 
-<button onclick="filtrar('venda')">
-Venda
-</button>
+<select id="filtroStatus" onchange="aplicarFiltros()">
+<option value="todos">Todos</option>
+<option value="disponivel">Disponíveis</option>
+<option value="vendido">Vendidos</option>
+</select>
 
-<button onclick="filtrar('aluguel')">
-Aluguel
-</button>
+<select id="ordenarValor" onchange="aplicarFiltros()">
+<option value="nenhum">Ordenar por valor</option>
+<option value="maior">Maior valor</option>
+<option value="menor">Menor valor</option>
+</select>
 
 </div>
 
