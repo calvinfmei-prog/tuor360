@@ -90,7 +90,7 @@ document.getElementById("nomeCorretor").innerText =
 `Olá, ${corretor_nome}`;
 
 const { data: imoveis } = await supabaseClient
-.from("imoveis")
+.from("imoveis_dashboard")
 .select("*")
 .eq("corretor_id", corretor_id);
 
@@ -192,7 +192,7 @@ lista.innerHTML = "";
 
 imoveis.forEach(imovel => {
 
-const viewCount = views[imovel.id] || 0;
+const viewCount = imovel.views || 0;
 const extras = extrasPorImovel[imovel.id] || [];
 
 const item = document.createElement("div");
