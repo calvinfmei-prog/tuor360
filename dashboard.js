@@ -419,6 +419,17 @@ document.getElementById("modalEditar").style.display = "none";
 
 }
 
+// =============================
+// LOGOUT
+// =============================
+
+async function logout(){
+
+await supabaseClient.auth.signOut();
+
+window.location.href = "/login.html";
+
+}
 
 // =============================
 // INICIAR
