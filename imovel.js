@@ -74,7 +74,7 @@ ESTATÍSTICAS (1 VISITA A CADA 12H)
 const chaveVisita = "visita_imovel_" + imovel.id;
 
 const agora = Date.now();
-const ultimaVisita = localStorage.getItem(chaveVisita);
+const ultimaVisita = Number(localStorage.getItem(chaveVisita));
 
 const limite = 12 * 60 * 60 * 1000; // 12 horas em ms
 
@@ -84,7 +84,8 @@ await supabaseClient
 .from("visitas_imoveis")
 .insert({
 imovel_id: imovel.id
-});
+})
+.catch(err => console.log("Erro ao registrar visita", err));
 
 localStorage.setItem(chaveVisita, agora);
 
@@ -95,7 +96,7 @@ ESTATÍSTICAS (CONTAR VISITAS)
 
 const { count } = await supabaseClient
 .from("visitas_imoveis")
-.select("*", { count: "exact", head: true })
+.select("id", { count: "exact", head: true })
 .eq("imovel_id", imovel.id);
 
 const viewsEl = document.getElementById("views");
