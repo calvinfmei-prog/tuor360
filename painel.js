@@ -10,7 +10,7 @@ if(!slugCorretor){
 }
 
 const supabaseUrl = "https://zhgfyqkihwyuteexzxgp.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoZ2Z5cWtpaHd5dXRlZXh6eGdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNTI5ODYsImV4cCI6MjA4ODYyODk4Nn0.CvVtLoNM_YRf2pU6wuyeeoLiKTPRDIBuIzQpLZL5e64";
+const supabaseKey = "SUA_KEY";
 
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
@@ -19,9 +19,15 @@ let corretorNome = sessionStorage.getItem("corretorNome");
 
 let whatsappCorretor = "";
 
+// LISTA ORIGINAL
+let todosImoveis = [];
+
+// FILTRO TIPO
+let tipoFiltro = "todos";
+
+
 async function inicializarCorretor(){
 
-  // se veio pela URL
   if(slugCorretor && !corretorId){
 
     const { data: corretor } = await supabaseClient
@@ -66,30 +72,87 @@ async function carregarCorretor(){
 }
 
 
-async function carregarImoveis(tipo = "todos"){
+async function carregarImoveis(){
 
   await inicializarCorretor();
   await carregarCorretor();
 
-  let query = supabaseClient
+  const { data, error } = await supabaseClient
     .from("imoveis")
     .select("*")
     .eq("corretor_id", corretorId);
 
-  if (tipo !== "todos") {
-    query = query.eq("tipo", tipo);
-  }
-
-  const { data, error } = await query;
-
   const lista = document.getElementById("listaImoveis");
-
-  lista.innerHTML = "";
 
   if (error) {
     lista.innerHTML = "Erro ao carregar imóveis.";
     return;
   }
+
+  todosImoveis = data;
+
+  aplicarFiltros();
+
+}
+
+
+function aplicarFiltros(){
+
+  let lista = [...todosImoveis];
+
+  const busca = document.getElementById("busca")?.value.toLowerCase() || "";
+
+  const statusFiltro = document.getElementById("filtroStatus")?.value || "todos";
+
+  const ordem = document.getElementById("ordenarValor")?.value || "nenhum";
+
+
+  // FILTRO TIPO (venda / aluguel)
+
+  if(tipoFiltro !== "todos"){
+    lista = lista.filter(i => i.tipo === tipoFiltro);
+  }
+
+
+  // BUSCA POR NOME
+
+  if(busca){
+    lista = lista.filter(imovel =>
+      imovel.titulo.toLowerCase().includes(busca)
+    );
+  }
+
+
+  // FILTRO STATUS
+
+  if(statusFiltro !== "todos"){
+    lista = lista.filter(imovel =>
+      imovel.status === statusFiltro
+    );
+  }
+
+
+  // ORDENAR VALOR
+
+  if(ordem === "maior"){
+    lista.sort((a,b)=> b.preco - a.preco);
+  }
+
+  if(ordem === "menor"){
+    lista.sort((a,b)=> a.preco - b.preco);
+  }
+
+
+  renderizarImoveis(lista);
+
+}
+
+
+function renderizarImoveis(data){
+
+  const lista = document.getElementById("listaImoveis");
+
+  lista.innerHTML = "";
 
   if (data.length === 0) {
     lista.innerHTML = "Nenhum imóvel encontrado.";
@@ -123,7 +186,6 @@ async function carregarImoveis(tipo = "todos"){
         </p>
 
         <h4>R$ ${imovel.preco}</h4>
-    
 
         <a href="/${slugCorretor}/${imovel.slug}" class="btn-preto">
         Ver Imóvel
@@ -144,8 +206,11 @@ async function carregarImoveis(tipo = "todos"){
 }
 
 
+// FILTRO TIPO (botões venda/aluguel)
+
 function filtrar(tipo){
-  carregarImoveis(tipo);
+  tipoFiltro = tipo;
+  aplicarFiltros();
 }
 
 
