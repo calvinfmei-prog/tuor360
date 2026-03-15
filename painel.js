@@ -105,6 +105,7 @@ function aplicarFiltros(){
   const statusFiltro = document.getElementById("filtroStatus")?.value || "todos";
 
   const ordem = document.getElementById("ordenarValor")?.value || "nenhum";
+  console.log("ordem selecionada:", ordem);
 
 
   // FILTRO TIPO (venda / aluguel)
