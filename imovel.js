@@ -129,7 +129,7 @@ PREENCHER DADOS
 
 document.getElementById("titulo").innerText = imovel.titulo;
 
-document.getElementById("preco").innerText = "R$ " + imovel.preco;
+document.getElementById("preco").innerText = "R$ " + Number(imovel.preco).toLocaleString("pt-BR");
 
 const statusEl = document.getElementById("status");
 
