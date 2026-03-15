@@ -3,9 +3,10 @@
 // =============================
 
 const supabaseUrl = "https://zhgfyqkihwyuteexzxgp.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoZ2Z5cWtpaHd5dXRlZXh6eGdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNTI5ODYsImV4cCI6MjA4ODYyODk4Nn0.CvVtLoNM_YRf2pU6wuyeeoLiKTPRDIBuIzQpLZL5e64";
+const supabaseKey = "SUA_PUBLIC_ANON_KEY";
 
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
 
 // =============================
 // VARIÁVEIS
@@ -35,6 +36,22 @@ return true;
 
 }
 
+
+// =============================
+// INICIAR DASHBOARD
+// =============================
+
+async function iniciarDashboard(){
+
+const { data: userData } = await supabaseClient.auth.getUser();
+
+if(!userData.user){
+
+window.location.replace("/login.html");
+return;
+
+}
+
 const userId = userData.user.id;
 
 
@@ -49,8 +66,10 @@ const { data, error } = await supabaseClient
 .single();
 
 if(error){
+
 console.error("Erro ao buscar corretor", error);
 return;
+
 }
 
 corretor_id = data.id;
@@ -69,7 +88,7 @@ async function carregarDashboard(){
 
 document.getElementById("nomeCorretor").innerText =
 `Olá, ${corretor_nome}`;
-  
+
 const { data: imoveis } = await supabaseClient
 .from("imoveis")
 .select("*")
@@ -107,6 +126,13 @@ valorVendido.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 
 const ids = imoveis.map(i => i.id);
 
+if(ids.length === 0){
+
+document.getElementById("totalViews").innerText = 0;
+return;
+
+}
+
 
 // buscar extras
 const { data: extrasData } = await supabaseClient
@@ -115,10 +141,11 @@ const { data: extrasData } = await supabaseClient
 .in("imovel_id", ids);
 
 
-// organizar extras por imóvel
+// organizar extras
 const extrasPorImovel = {};
 
 if(extrasData){
+
 extrasData.forEach(e=>{
 
 if(!extrasPorImovel[e.imovel_id]){
@@ -128,6 +155,7 @@ extrasPorImovel[e.imovel_id] = [];
 extrasPorImovel[e.imovel_id].push(e.extra);
 
 });
+
 }
 
 
@@ -138,13 +166,15 @@ const { data: visitas } = await supabaseClient
 .in("imovel_id", ids);
 
 
-// contar visualizações
+// contar views
 const views = {};
 
 if(visitas){
+
 visitas.forEach(v=>{
 views[v.imovel_id] = (views[v.imovel_id] || 0) + 1;
 });
+
 }
 
 const totalViews = visitas ? visitas.length : 0;
@@ -163,7 +193,6 @@ lista.innerHTML = "";
 imoveis.forEach(imovel => {
 
 const viewCount = views[imovel.id] || 0;
-
 const extras = extrasPorImovel[imovel.id] || [];
 
 const item = document.createElement("div");
@@ -175,7 +204,8 @@ item.innerHTML = `
 <h3>${imovel.titulo}</h3>
 
 <p>
-${Number((imovel.preco || "0").replace(/\./g,"")).toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}
+${Number((imovel.preco || "0").replace(/\./g,""))
+.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}
 </p>
 
 <p>
@@ -196,17 +226,9 @@ Status: ${imovel.status || "disponível"}
 ⭐ Extras: ${extras.length ? extras.join(", ") : "Nenhum"}
 </p>
 
-<button onclick="editarImovel(${imovel.id})">
-Editar
-</button>
-
-<button onclick="marcarVendido(${imovel.id})">
-Vendido
-</button>
-
-<button onclick="excluirImovel(${imovel.id})">
-Excluir
-</button>
+<button onclick="editarImovel(${imovel.id})">Editar</button>
+<button onclick="marcarVendido(${imovel.id})">Vendido</button>
+<button onclick="excluirImovel(${imovel.id})">Excluir</button>
 
 `;
 
@@ -224,7 +246,6 @@ lista.appendChild(item);
 async function excluirImovel(id){
 
 const confirmar = confirm("Deseja excluir este imóvel?");
-
 if(!confirmar) return;
 
 const { error } = await supabaseClient
@@ -233,13 +254,14 @@ const { error } = await supabaseClient
 .eq("id", id);
 
 if(error){
+
 alert("Erro ao excluir");
 console.error(error);
 return;
+
 }
 
 alert("Imóvel excluído!");
-
 location.reload();
 
 }
@@ -252,7 +274,6 @@ location.reload();
 async function marcarVendido(id){
 
 const confirmar = confirm("Marcar este imóvel como vendido?");
-
 if(!confirmar) return;
 
 const { error } = await supabaseClient
@@ -261,20 +282,21 @@ const { error } = await supabaseClient
 .eq("id", id);
 
 if(error){
+
 alert("Erro ao atualizar");
 console.error(error);
 return;
+
 }
 
 alert("Imóvel marcado como vendido");
-
 location.reload();
 
 }
 
 
 // =============================
-// EDITAR IMÓVEL (MODAL)
+// EDITAR IMÓVEL
 // =============================
 
 async function editarImovel(id){
@@ -302,10 +324,7 @@ document.getElementById("editArea").value = data.area || "";
 document.getElementById("editStatus").value = data.status || "disponivel";
 
 
-// =============================
-// BUSCAR EXTRAS
-// =============================
-
+// buscar extras
 const { data: extrasData } = await supabaseClient
 .from("imovel_extras")
 .select("extra")
@@ -313,12 +332,10 @@ const { data: extrasData } = await supabaseClient
 
 const extras = extrasData ? extrasData.map(e => e.extra) : [];
 
-
 document.getElementById("extraPiscina").checked = extras.includes("Piscina");
 document.getElementById("extraGaragem").checked = extras.includes("Garagem");
 document.getElementById("extraAcademia").checked = extras.includes("Academia");
 document.getElementById("extraGourmet").checked = extras.includes("Área Gourmet");
-
 
 document.getElementById("modalEditar").style.display = "flex";
 
@@ -341,33 +358,22 @@ const area = document.getElementById("editArea").value;
 const status = document.getElementById("editStatus").value;
 
 
-// =============================
-// ATUALIZAR IMÓVEL
-// =============================
-
+// atualizar imóvel
 const { error } = await supabaseClient
 .from("imoveis")
-.update({
-titulo,
-preco,
-quartos,
-banheiros,
-area,
-status
-})
+.update({titulo,preco,quartos,banheiros,area,status})
 .eq("id", imovelEditando);
 
 if(error){
+
 alert("Erro ao salvar imóvel");
 console.error(error);
 return;
+
 }
 
 
-// =============================
-// CAPTURAR EXTRAS
-// =============================
-
+// capturar extras
 let extras = [];
 
 if(document.getElementById("extraPiscina").checked) extras.push("Piscina");
@@ -376,34 +382,24 @@ if(document.getElementById("extraAcademia").checked) extras.push("Academia");
 if(document.getElementById("extraGourmet").checked) extras.push("Área Gourmet");
 
 
-// =============================
-// REMOVER EXTRAS ANTIGOS
-// =============================
-
+// remover extras antigos
 await supabaseClient
 .from("imovel_extras")
 .delete()
 .eq("imovel_id", imovelEditando);
 
 
-// =============================
-// INSERIR NOVOS EXTRAS
-// =============================
-
+// inserir novos
 const extrasInsert = extras.map(extra => ({
 imovel_id: imovelEditando,
-extra: extra
+extra
 }));
 
 if(extrasInsert.length > 0){
 
-const { error: errorExtras } = await supabaseClient
+await supabaseClient
 .from("imovel_extras")
 .insert(extrasInsert);
-
-if(errorExtras){
-console.error(errorExtras);
-}
 
 }
 
@@ -420,10 +416,9 @@ carregarDashboard();
 // =============================
 
 function fecharModal(){
-
 document.getElementById("modalEditar").style.display = "none";
-
 }
+
 
 // =============================
 // LOGOUT
@@ -433,10 +428,10 @@ async function logout(){
 
 await supabaseClient.auth.signOut();
 
-// replace impede voltar para o dashboard
 window.location.replace("/login.html");
 
 }
+
 
 // =============================
 // INICIAR COM PROTEÇÃO
