@@ -186,7 +186,7 @@ function renderizarImoveis(data){
         ${imovel.area}m²
         </p>
 
-        <h4>R$ ${imovel.preco}</h4>
+        <h4>R$ ${Number(imovel.preco).toLocaleString("pt-BR")}</h4>
 
         <a href="/${slugCorretor}/${imovel.slug}" class="btn-preto">
         Ver Imóvel
