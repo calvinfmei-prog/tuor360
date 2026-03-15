@@ -408,11 +408,12 @@ padding:20px;
 
 .painel-header{
 
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+padding: 15px 20px;
+flex-wrap: wrap;
 }
 
 .painel-header h1{
@@ -1036,29 +1037,20 @@ font-weight:700;
 
 text-align:center;
 
+flex: 1;
+
 color:#111;
 
 }
 
 .btn-sair{
-
-position:absolute;
-
-right:20px;
-
-background:#ef4444;
-color:white;
-
-border:none;
-
-padding:8px 16px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-font-weight:600;
-
+background: #e53935;
+color: white;
+border: none;
+padding: 8px 14px;
+border-radius: 6px;
+cursor: pointer;
+white-space: nowrap;
 }
 
 .btn-sair:hover{
@@ -1067,6 +1059,22 @@ background:#dc2626;
 
 }
 
+@media (max-width:600px){
+
+  .painel-header{
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .titulo-central{
+    width: 100%;
+  }
+
+  .btn-sair{
+    margin-top: 8px;
+  }
+
+}
 /* FILTROS PAINEL.HTML */
 
 .barra-filtros{
