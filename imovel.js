@@ -80,12 +80,15 @@ const limite = 12 * 60 * 60 * 1000; // 12 horas em ms
 
 if(!ultimaVisita || (agora - ultimaVisita) > limite){
 
-await supabaseClient
+const { error } = await supabaseClient
 .from("visitas_imoveis")
 .insert({
-imovel_id: imovel.id
-})
-.catch(err => console.log("Erro ao registrar visita", err));
+  imovel_id: imovel.id
+});
+
+if(error){
+  console.log("Erro ao registrar visita:", error);
+}
 
 localStorage.setItem(chaveVisita, agora);
 
