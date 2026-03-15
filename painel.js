@@ -135,12 +135,12 @@ function aplicarFiltros(){
   // ORDENAR VALOR
 
   if(ordem === "maior"){
-    lista.sort((a,b)=> b.preco - a.preco);
-  }
+    lista.sort((a,b)=> Number(b.preco) - Number(a.preco));
+}
 
   if(ordem === "menor"){
-    lista.sort((a,b)=> a.preco - b.preco);
-  }
+    lista.sort((a,b)=> Number(a.preco) - Number(b.preco));
+}
 
 
   renderizarImoveis(lista);
