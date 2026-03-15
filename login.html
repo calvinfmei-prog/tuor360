@@ -25,19 +25,19 @@
 
 </div>
 
-<div class="login-form">
+<form class="login-form" onsubmit="login(event)">
 
 <label>Email</label>
-<input id="email" placeholder="seu@email.com">
+<input id="email" placeholder="seu@email.com" required>
 
 <label>Senha</label>
-<input id="senha" type="password" placeholder="••••••••">
+<input id="senha" type="password" placeholder="••••••••" required>
 
-<button onclick="login()">
+<button type="submit">
 Entrar no dashboard
 </button>
 
-</div>
+</form>
 
 <div class="login-footer">
 
