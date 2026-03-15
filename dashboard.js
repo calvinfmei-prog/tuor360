@@ -17,16 +17,22 @@ let imovelEditando = null;
 
 
 // =============================
-// INICIAR DASHBOARD
+// VERIFICAR SESSÃO
 // =============================
 
-async function iniciarDashboard(){
+async function verificarSessao(){
 
-const { data: userData } = await supabaseClient.auth.getUser();
+const { data } = await supabaseClient.auth.getSession();
 
-if(!userData.user){
-window.location.href = "/login.html";
-return;
+if(!data.session){
+
+window.location.replace("/login.html");
+return false;
+
+}
+
+return true;
+
 }
 
 const userId = userData.user.id;
@@ -427,12 +433,21 @@ async function logout(){
 
 await supabaseClient.auth.signOut();
 
-window.location.href = "/login.html";
+// replace impede voltar para o dashboard
+window.location.replace("/login.html");
 
 }
 
 // =============================
-// INICIAR
+// INICIAR COM PROTEÇÃO
 // =============================
 
+(async () => {
+
+const autorizado = await verificarSessao();
+
+if(autorizado){
 iniciarDashboard();
+}
+
+})();
