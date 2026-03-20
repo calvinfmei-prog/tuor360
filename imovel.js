@@ -121,7 +121,7 @@ const resumo = [];
 if(imovel.quartos) resumo.push(imovel.quartos + " quartos");
 if(imovel.banheiros) resumo.push(imovel.banheiros + " banheiros");
 if(imovel.suites) resumo.push(imovel.suites + " suítes");
-if(imovel.vagas_garagem) resumo.push(imovel.vagas_garagem + " vagas na garagem");
+if(imovel.vagas_garagem) resumo.push(imovel.vagas_garagem + " vagas");
 if(imovel.area) resumo.push(imovel.area + "m²");
 
 /* Diferenciais (opcional) */
@@ -168,7 +168,7 @@ if(imovel.quartos) info.push(imovel.quartos + " quartos");
 if(imovel.banheiros) info.push(imovel.banheiros + " banheiros");
 if(imovel.suites) info.push(imovel.suites + " suítes");
 if(imovel.lavabos) info.push(imovel.lavabos + " lavabos");
-if(imovel.vagas_garagem) info.push(imovel.vagas_garagem + " vagas");
+if(imovel.vagas_garagem) info.push(imovel.vagas_garagem + " vagas na garagem");
 
 /* Área sempre aparece */
 if(imovel.area) info.push(imovel.area + "m²");
