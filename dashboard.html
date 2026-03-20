@@ -113,6 +113,12 @@ const { createClient } = supabase;
 <label>Área</label>
 <input id="editArea" style="width:100%; margin-bottom:15px">
 
+<label>Status</label>
+<select id="editStatus" style="width:100%; margin-bottom:20px">
+<option value="disponivel">Disponível</option>
+<option value="vendido">Vendido</option>
+</select>
+
 <h3>Características</h3>
 
 <label>
@@ -123,11 +129,6 @@ const { createClient } = supabase;
   <input type="checkbox" id="editVarandaEstrutural"> Varanda
 </label>
 
-<label>Status</label>
-<select id="editStatus" style="width:100%; margin-bottom:20px">
-<option value="disponivel">Disponível</option>
-<option value="vendido">Vendido</option>
-</select>
 
 <h3>Extras</h3>
 
