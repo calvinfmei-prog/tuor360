@@ -26,6 +26,52 @@ return;
 }
 
 // login ok
-window.location.href = "/dashboard.html";
+async function login(event){
+
+// impede reload do form
+if(event){
+  event.preventDefault();
+}
+
+const email = document.getElementById("email").value;
+const senha = document.getElementById("senha").value;
+
+const { data, error } = await supabaseClient.auth.signInWithPassword({
+  email: email,
+  password: senha
+});
+
+if(error){
+  alert("Erro no login");
+  return;
+}
+
+// pegar usuário logado
+const user = data.user;
+
+if(!user){
+  alert("Erro ao obter usuário");
+  return;
+}
+
+// buscar se é admin
+const { data: corretor, error: erroCorretor } = await supabaseClient
+.from("corretores")
+.select("is_admin")
+.eq("user_id", user.id)
+.single();
+
+if(erroCorretor){
+  console.error(erroCorretor);
+  alert("Erro ao carregar dados do usuário");
+  return;
+}
+
+// redirecionamento inteligente
+if(corretor.is_admin){
+  window.location.replace("/admin-geral.html");
+}else{
+  window.location.replace("/dashboard.html");
+}
 
 }
