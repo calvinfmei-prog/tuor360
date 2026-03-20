@@ -147,10 +147,24 @@ statusEl.innerHTML = "🟢 Disponível";
 
 }
 
-document.getElementById("info").innerText =
-imovel.quartos + " quartos • " +
-imovel.banheiros + " banheiros • " +
-imovel.area + "m²";
+const info = [];
+
+/* Estrutura básica */
+if(imovel.quartos) info.push(imovel.quartos + " quartos");
+if(imovel.banheiros) info.push(imovel.banheiros + " banheiros");
+if(imovel.suites) info.push(imovel.suites + " suítes");
+if(imovel.lavabos) info.push(imovel.lavabos + " lavabos");
+if(imovel.vagas_garagem) info.push(imovel.vagas_garagem + " vagas");
+
+/* Área sempre aparece */
+if(imovel.area) info.push(imovel.area + "m²");
+
+/* Booleanos */
+if(imovel.area_servico) info.push("Área de serviço");
+if(imovel.varanda) info.push("Varanda");
+
+/* Renderizar */
+document.getElementById("info").innerText = info.join(" • ");
 
 /* =========================
 WHATSAPP
