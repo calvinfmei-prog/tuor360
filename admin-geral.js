@@ -49,7 +49,8 @@ async function carregarPainel(){
 
 const { count: totalCorretores } = await supabaseClient
 .from("corretores")
-.select("*", { count: "exact", head: true });
+.select("*", { count: "exact", head: true })
+.eq("is_admin", false);
 
 document.getElementById("totalCorretores").innerText = totalCorretores || 0;
 
