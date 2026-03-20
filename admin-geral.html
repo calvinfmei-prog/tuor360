@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Painel Geral</title>
+
+<link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+<!-- HEADER -->
+<div class="dashboard-header">
+
+<div>
+<h1>Painel Geral</h1>
+<p id="nomeAdmin">Administrador</p>
+</div>
+
+<button onclick="logout()" class="btn-sair">
+Sair
+</button>
+
+</div>
+
+<!-- MÉTRICAS -->
+<div class="cards">
+
+<div class="card card-metrica">
+<span>👥</span>
+<div>
+<h3>Corretores</h3>
+<p id="totalCorretores">0</p>
+</div>
+</div>
+
+<div class="card card-metrica">
+<span>🏠</span>
+<div>
+<h3>Imóveis</h3>
+<p id="totalImoveis">0</p>
+</div>
+</div>
+
+<div class="card card-metrica">
+<span>💰</span>
+<div>
+<h3>Valor Total</h3>
+<p id="valorTotal">R$ 0</p>
+</div>
+</div>
+
+<div class="card card-metrica">
+<span>📉</span>
+<div>
+<h3>Vendidos</h3>
+<p id="valorVendido">R$ 0</p>
+</div>
+</div>
+
+<div class="card card-metrica">
+<span>👀</span>
+<div>
+<h3>Visualizações</h3>
+<p id="totalViews">0</p>
+</div>
+</div>
+
+</div>
+
+<!-- LISTA -->
+<h2 class="titulo-secao">Todos os imóveis</h2>
+
+<div id="listaImoveis" class="lista-imoveis"></div>
+
+</div>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const { createClient } = supabase;
+</script>
+
+<script src="/admin-geral.js"></script>
+
+</body>
+
+</html>
