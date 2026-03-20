@@ -73,5 +73,3 @@ if(corretor.is_admin){
 }else{
   window.location.replace("/dashboard.html");
 }
-
-}
