@@ -213,7 +213,7 @@ const iconesExtras = {
 "Varanda": "🌅",
 "Jardim": "🌳",
 "Portaria 24h": "🛡️",
-"Ar Condicionado": "❄️"
+"Dependência de Empregada": "👩🏻‍⚖️"
 
 };
 
