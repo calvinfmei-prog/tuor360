@@ -121,7 +121,7 @@ const resumo = [];
 if(imovel.quartos) resumo.push(imovel.quartos + " quartos");
 if(imovel.banheiros) resumo.push(imovel.banheiros + " banheiros");
 if(imovel.suites) resumo.push(imovel.suites + " suítes");
-if(imovel.vagas_garagem) resumo.push(imovel.vagas_garagem + " vagas");
+if(imovel.vagas_garagem) resumo.push(imovel.vagas_garagem + " vagas na garagem");
 if(imovel.area) resumo.push(imovel.area + "m²");
 
 /* Diferenciais (opcional) */
