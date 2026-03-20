@@ -380,6 +380,12 @@ if(document.getElementById("extraPiscina").checked) extras.push("Piscina");
 if(document.getElementById("extraGaragem").checked) extras.push("Garagem");
 if(document.getElementById("extraAcademia").checked) extras.push("Academia");
 if(document.getElementById("extraGourmet").checked) extras.push("Área Gourmet");
+if(document.getElementById("extraChurrasqueira").checked) extras.push("Churrasqueira");
+if(document.getElementById("extraElevador").checked) extras.push("Elevador");
+if(document.getElementById("extraVaranda").checked) extras.push("Varanda");
+if(document.getElementById("extraJardim").checked) extras.push("Jardim");
+if(document.getElementById("extraPortaria").checked) extras.push("Portaria 24h");
+if(document.getElementById("extraDependencia").checked) extras.push("Dependência de Empregada");
 
 
 // remover extras antigos
