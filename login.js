@@ -7,29 +7,6 @@ async function login(event){
 
 // impede reload do form
 if(event){
-event.preventDefault();
-}
-
-const email = document.getElementById("email").value;
-const senha = document.getElementById("senha").value;
-
-const { data, error } = await supabaseClient.auth.signInWithPassword({
-email: email,
-password: senha
-});
-
-if(error){
-
-alert("Erro no login");
-return;
-
-}
-
-// login ok
-async function login(event){
-
-// impede reload do form
-if(event){
   event.preventDefault();
 }
 
@@ -72,4 +49,6 @@ if(corretor.is_admin){
   window.location.replace("/admin-geral.html");
 }else{
   window.location.replace("/dashboard.html");
+}
+
 }
