@@ -115,10 +115,24 @@ Dados para whatsapp
 document.querySelector('meta[property="og:title"]')
 .setAttribute("content", imovel.titulo);
 
+/* Montar descrição dinâmica */
+const resumo = [];
+
+if(imovel.quartos) resumo.push(imovel.quartos + " quartos");
+if(imovel.banheiros) resumo.push(imovel.banheiros + " banheiros");
+if(imovel.suites) resumo.push(imovel.suites + " suítes");
+if(imovel.vagas_garagem) resumo.push(imovel.vagas_garagem + " vagas");
+if(imovel.area) resumo.push(imovel.area + "m²");
+
+/* Diferenciais (opcional) */
+if(imovel.varanda) resumo.push("Varanda");
+if(imovel.area_servico) resumo.push("Área de serviço");
+
+/* Aplicar no OG */
 document.querySelector('meta[property="og:description"]')
 .setAttribute(
-"content",
-`${imovel.quartos} quartos • ${imovel.area}m² • R$ ${imovel.preco}`
+  "content",
+  `${resumo.join(" • ")} • R$ ${Number(imovel.preco).toLocaleString("pt-BR")}`
 );
 
 document.querySelector('meta[property="og:image"]')
