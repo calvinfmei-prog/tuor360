@@ -84,41 +84,55 @@ document.getElementById("form-imovel").addEventListener("submit", async (e)=>{
   }
 
   
-  const titulo = document.getElementById("titulo").value;
-  const tipo = document.getElementById("tipo").value;
-  const preco = document.getElementById("preco").value;
-  const quartos = parseInt(document.getElementById("quartos").value);
-  const banheiros = parseInt(document.getElementById("banheiros").value);
-  const area = parseInt(document.getElementById("area").value);
-  const imagem = document.getElementById("imagem").value;
-  const tour = document.getElementById("tour").value;
-  const slug = gerarSlug(titulo);
+const titulo = document.getElementById("titulo").value;
+const tipo = document.getElementById("tipo").value;
+const preco = document.getElementById("preco").value;
 
-  /* Inserir imóvel */
-  const { data, error } = await supabaseClient
-    .from("imoveis")
-    .insert({
-      titulo,
-      tipo,
-      preco,
-      quartos,
-      banheiros,
-      area,
-      imagem,
-      tour,
-      slug,
-      corretor_id
-    })
-    .select()
-    .single();
+const quartos = parseInt(document.getElementById("quartos").value) || 0;
+const banheiros = parseInt(document.getElementById("banheiros").value) || 0;
+const suites = parseInt(document.getElementById("suites").value) || 0;
+const lavabos = parseInt(document.getElementById("lavabos").value) || 0;
+const vagas_garagem = parseInt(document.getElementById("vagas").value) || 0;
+const area = parseInt(document.getElementById("area").value) || 0;
 
-  if(error){
-    console.error(error);
-    alert("Erro: " + error.message);
-    return;
-  }
+const area_servico = document.getElementById("area_servico").checked;
+const varanda = document.getElementById("varanda").checked;
 
-  const imovel_id = data.id;
+const imagem = document.getElementById("imagem").value;
+const tour = document.getElementById("tour").value;
+
+const slug = gerarSlug(titulo);
+
+/* Inserir imóvel */
+const { data, error } = await supabaseClient
+  .from("imoveis")
+  .insert({
+    titulo,
+    tipo,
+    preco,
+    quartos,
+    banheiros,
+    suites,
+    lavabos,
+    vagas_garagem,
+    area,
+    area_servico,
+    varanda,
+    imagem,
+    tour,
+    slug,
+    corretor_id
+  })
+  .select()
+  .single();
+
+if (error) {
+  console.error(error);
+  alert("Erro: " + error.message);
+  return;
+}
+
+const imovel_id = data.id;
 
   /* Salvar extras */
   const extras = [...document.querySelectorAll(".extra:checked")].map(e => e.value);
