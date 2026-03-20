@@ -319,6 +319,13 @@ document.getElementById("editPreco").value = data.preco;
 
 document.getElementById("editQuartos").value = data.quartos || "";
 document.getElementById("editBanheiros").value = data.banheiros || "";
+document.getElementById("editSuites").value = data.suites || "";
+document.getElementById("editLavabos").value = data.lavabos || "";
+document.getElementById("editVagas").value = data.vagas_garagem || "";
+
+/* booleanos */
+document.getElementById("editAreaServico").checked = data.area_servico || false;
+document.getElementById("editVarandaEstrutural").checked = data.varanda || false;
 document.getElementById("editArea").value = data.area || "";
 
 document.getElementById("editStatus").value = data.status || "disponivel";
@@ -336,6 +343,12 @@ document.getElementById("extraPiscina").checked = extras.includes("Piscina");
 document.getElementById("extraGaragem").checked = extras.includes("Garagem");
 document.getElementById("extraAcademia").checked = extras.includes("Academia");
 document.getElementById("extraGourmet").checked = extras.includes("Área Gourmet");
+document.getElementById("extraChurrasqueira").checked = extras.includes("Churrasqueira");
+document.getElementById("extraElevador").checked = extras.includes("Elevador");
+document.getElementById("extraVaranda").checked = extras.includes("Varanda");
+document.getElementById("extraJardim").checked = extras.includes("Jardim");
+document.getElementById("extraPortaria").checked = extras.includes("Portaria 24h");
+document.getElementById("extraDependencia").checked = extras.includes("Dependência de Empregada");
 
 document.getElementById("modalEditar").style.display = "flex";
 
@@ -359,17 +372,34 @@ const status = document.getElementById("editStatus").value;
 
 
 // atualizar imóvel
+const suites = parseInt(document.getElementById("editSuites").value) || 0;
+const lavabos = parseInt(document.getElementById("editLavabos").value) || 0;
+const vagas_garagem = parseInt(document.getElementById("editVagas").value) || 0;
+
+const area_servico = document.getElementById("editAreaServico").checked;
+const varanda = document.getElementById("editVarandaEstrutural").checked;
+
 const { error } = await supabaseClient
 .from("imoveis")
-.update({titulo,preco,quartos,banheiros,area,status})
+.update({
+  titulo,
+  preco,
+  quartos: parseInt(quartos) || 0,
+  banheiros: parseInt(banheiros) || 0,
+  suites,
+  lavabos,
+  vagas_garagem,
+  area: parseInt(area) || 0,
+  area_servico,
+  varanda,
+  status
+})
 .eq("id", imovelEditando);
 
-if(error){
-
-alert("Erro ao salvar imóvel");
-console.error(error);
-return;
-
+if (error) {
+  alert("Erro ao salvar imóvel");
+  console.error(error);
+  return;
 }
 
 
