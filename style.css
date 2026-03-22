@@ -1294,3 +1294,16 @@ font-size:16px;
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* Visualizações */
+.top-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.views {
+  font-size: 14px;
+  color: #666;
+}
