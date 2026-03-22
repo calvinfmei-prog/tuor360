@@ -178,7 +178,11 @@ if(imovel.area_servico) info.push("Área de serviço");
 if(imovel.varanda) info.push("Varanda");
 
 /* Renderizar */
-document.getElementById("info").innerText = info.join(" • ");
+const infoEl = document.getElementById("info");
+
+infoEl.innerHTML = info
+  .map(item => `<div class="info-item">${getIcone(item)} ${item}</div>`)
+  .join("");
 
 /* =========================
 WHATSAPP
@@ -272,6 +276,23 @@ extrasDiv.innerHTML = "Nenhum extra informado.";
 
 }
 
+}
+
+// =========================
+// FUNÇÃO DE ÍCONES
+// =========================
+function getIcone(texto){
+
+if(texto.includes("quartos")) return "🛏️";
+if(texto.includes("banheiros")) return "🚿";
+if(texto.includes("suítes")) return "🛌";
+if(texto.includes("lavabos")) return "🚽";
+if(texto.includes("vagas")) return "🚗";
+if(texto.includes("m²")) return "📐";
+if(texto.includes("serviço")) return "🧺";
+if(texto.includes("Varanda")) return "🌅";
+
+return "✔️";
 }
 
 /* =========================
