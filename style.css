@@ -1272,3 +1272,25 @@ font-size:16px;
 
 }
 
+/* INFO ITEM */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.info-item {
+  background: #f5f5f5;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .info-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
