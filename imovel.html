@@ -9,7 +9,6 @@
 <title>Imóvel</title>
 
 <!-- Open Graph -->
-
 <meta property="og:type" content="website">
 <meta property="og:title" content="Veja este imóvel em tour virtual 360°">
 <meta property="og:description" content="Clique para abrir o tour virtual do imóvel">
@@ -26,39 +25,42 @@
 
 <div class="imovel-container">
 
-<div class="imovel-card">
+  <div class="imovel-card">
 
-<h1 id="titulo"></h1>
+    <h1 id="titulo"></h1>
 
-<div class="top-info">
-  <p id="status" class="status-imovel"></p>
-  <p class="views">
-    👀 <span id="views">0</span>
-  </p>
-</div>
+    <!-- STATUS + VIEWS -->
+    <div class="top-info">
+      <p id="status" class="status-imovel"></p>
+      <p class="views">
+        👀 <span id="views">0</span> visualizações
+      </p>
+    </div>
 
-<h2 id="preco" class="preco"></h2>
+    <!-- PREÇO -->
+    <h2 id="preco" class="preco"></h2>
 
-<div class="info-linha">
+    <!-- INFOS -->
+    <div class="info-linha">
+      <div id="info" class="info-grid"></div>
+    </div>
 
-<h3 class="titulo-secao">Extras do imóvel</h3>
+    <!-- EXTRAS -->
+    <h3 class="titulo-secao">Extras do imóvel</h3>
+    <div id="extras" class="extras"></div>
 
-<div id="extras" class="extras"></div>
+    <!-- BOTÃO -->
+    <a id="whatsapp" class="btn-verde">
+      Falar com o Corretor no WhatsApp
+    </a>
 
-<a id="whatsapp" class="btn-verde">
-Falar com o Corretor no WhatsApp
-</a>
+  </div>
 
-</div>
-
-
-<div class="tour-container">
-
-<h3 class="titulo-secao">Tour Virtual 360°</h3>
-
-<div id="tour"></div>
-
-</div>
+  <!-- TOUR -->
+  <div class="tour-container">
+    <h3 class="titulo-secao">Tour Virtual 360°</h3>
+    <div id="tour"></div>
+  </div>
 
 </div>
 
