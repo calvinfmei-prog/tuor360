@@ -72,7 +72,7 @@ async function carregarCorretores(){
 }
 
 /* =========================
-SALVAR IMÓVEL
+SALVAR IMÓVEL (COM UPLOAD)
 ========================= */
 document.getElementById("form-imovel").addEventListener("submit", async (e)=>{
   e.preventDefault();
@@ -83,59 +83,93 @@ document.getElementById("form-imovel").addEventListener("submit", async (e)=>{
     return;
   }
 
-  
-const titulo = document.getElementById("titulo").value;
-const tipo = document.getElementById("tipo").value;
-const preco = document.getElementById("preco").value;
+  const titulo = document.getElementById("titulo").value;
+  const tipo = document.getElementById("tipo").value;
+  const preco = document.getElementById("preco").value;
 
-const quartos = parseInt(document.getElementById("quartos").value) || 0;
-const banheiros = parseInt(document.getElementById("banheiros").value) || 0;
-const suites = parseInt(document.getElementById("suites").value) || 0;
-const lavabos = parseInt(document.getElementById("lavabos").value) || 0;
-const vagas_garagem = parseInt(document.getElementById("vagas").value) || 0;
-const area = parseInt(document.getElementById("area").value) || 0;
+  const quartos = parseInt(document.getElementById("quartos").value) || 0;
+  const banheiros = parseInt(document.getElementById("banheiros").value) || 0;
+  const suites = parseInt(document.getElementById("suites").value) || 0;
+  const lavabos = parseInt(document.getElementById("lavabos").value) || 0;
+  const vagas_garagem = parseInt(document.getElementById("vagas").value) || 0;
+  const area = parseInt(document.getElementById("area").value) || 0;
 
-const area_servico = document.getElementById("area_servico").checked;
-const varanda = document.getElementById("varanda").checked;
+  const area_servico = document.getElementById("area_servico").checked;
+  const varanda = document.getElementById("varanda").checked;
 
-const imagem = document.getElementById("imagem").value;
-const tour = document.getElementById("tour").value;
+  const tour = document.getElementById("tour").value;
 
-const slug = gerarSlug(titulo);
+  const slug = gerarSlug(titulo);
 
-/* Inserir imóvel */
-const { data, error } = await supabaseClient
-  .from("imoveis")
-  .insert({
-    titulo,
-    tipo,
-    preco,
-    quartos,
-    banheiros,
-    suites,
-    lavabos,
-    vagas_garagem,
-    area,
-    area_servico,
-    varanda,
-    imagem,
-    tour,
-    slug,
-    corretor_id
-  })
-  .select()
-  .single();
+  /* =========================
+  UPLOAD DA IMAGEM
+  ========================= */
+  const fileInput = document.getElementById("imagem");
+  const file = fileInput.files[0];
 
-if (error) {
-  console.error(error);
-  alert("Erro: " + error.message);
-  return;
-}
+  let urlImagem = null;
 
-const imovel_id = data.id;
+  if(file){
 
-  /* Salvar extras */
+    const nomeArquivo = `${corretor_id}/${Date.now()}-${file.name}`;
+
+    const { error: uploadError } = await supabaseClient
+      .storage
+      .from("imoveis")
+      .upload(nomeArquivo, file, { upsert: true });
+
+    if(uploadError){
+      console.error(uploadError);
+      alert("Erro ao enviar imagem");
+      return;
+    }
+
+    const { data: urlData } = supabaseClient
+      .storage
+      .from("imoveis")
+      .getPublicUrl(nomeArquivo);
+
+    urlImagem = urlData.publicUrl;
+  }
+
+  /* =========================
+  INSERIR IMÓVEL
+  ========================= */
+  const { data, error } = await supabaseClient
+    .from("imoveis")
+    .insert({
+      titulo,
+      tipo,
+      preco,
+      quartos,
+      banheiros,
+      suites,
+      lavabos,
+      vagas_garagem,
+      area,
+      area_servico,
+      varanda,
+      imagem: urlImagem,
+      tour,
+      slug,
+      corretor_id
+    })
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    alert("Erro: " + error.message);
+    return;
+  }
+
+  const imovel_id = data.id;
+
+  /* =========================
+  SALVAR EXTRAS
+  ========================= */
   const extras = [...document.querySelectorAll(".extra:checked")].map(e => e.value);
+
   for(const extra of extras){
     await supabaseClient.from("imovel_extras").insert({ imovel_id, extra });
   }
