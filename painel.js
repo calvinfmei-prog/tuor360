@@ -166,11 +166,27 @@ function renderizarImoveis(data){
       ? '<span class="status-vendido">🔴 Vendido</span>'
       : '<span class="status-disponivel">🟢 Disponível</span>';
 
+    // tratar dados
+    const preco = Number(imovel.preco || 0);
+    const quartos = imovel.quartos || 0;
+    const banheiros = imovel.banheiros || 0;
+    const area = imovel.area || 0;
+
+    // fallback de imagem
+    const imagem = imovel.imagem 
+      ? imovel.imagem 
+      : "https://via.placeholder.com/400x250?text=Sem+Imagem";
+
+    // mensagem whatsapp personalizada
+    const mensagem = encodeURIComponent(
+      `Olá! Tenho interesse no imóvel: ${imovel.titulo} - R$ ${preco.toLocaleString("pt-BR")}`
+    );
+
     lista.innerHTML += `
 
     <div class="card">
 
-      <img src="${imovel.imagem}" class="card-img">
+      <img src="${imagem}" class="card-img" onerror="this.src='https://via.placeholder.com/400x250?text=Imagem+Indisponível'">
 
       <div class="card-body">
 
@@ -181,18 +197,18 @@ function renderizarImoveis(data){
         </p>
 
         <p>
-        ${imovel.quartos} quartos •
-        ${imovel.banheiros} banheiros •
-        ${imovel.area}m²
+        🛏️ ${quartos} quartos •
+        🚿 ${banheiros} banheiros •
+        📐 ${area}m²
         </p>
 
-        <h4>R$ ${Number(imovel.preco).toLocaleString("pt-BR")}</h4>
+        <h4>R$ ${preco.toLocaleString("pt-BR")}</h4>
 
         <a href="/${slugCorretor}/${imovel.slug}" class="btn-preto">
         Ver Imóvel
         </a>
 
-        <a href="https://wa.me/${whatsappCorretor}" class="btn-verde">
+        <a href="https://wa.me/${whatsappCorretor}?text=${mensagem}" target="_blank" class="btn-verde">
         Falar no WhatsApp
         </a>
 
@@ -205,7 +221,6 @@ function renderizarImoveis(data){
   });
 
 }
-
 
 // FILTRO TIPO (botões venda/aluguel)
 
